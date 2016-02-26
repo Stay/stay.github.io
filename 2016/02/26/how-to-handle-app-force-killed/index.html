@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android, Stay" />
+  <meta name="keywords" content="android, 空指针," />
 
 
 
@@ -57,16 +57,19 @@
 
 
 
-<meta name="description" content="select * from life">
+<meta name="description" content="应用在后台运行时很容易被强杀，这很正常，但是回到前台时，很容易出现空指针的情况。怎么解决这样的问题，且看看Stay的见解。
+我们先跳出来看看android的app运行原理。app在后台被强杀，是在内存不足的情况下被强制释放了，也有一些恶心的rom会强制杀掉那些后台进程以释放缓存以提高所谓的用户体验。我们都觉得android rom很恶心，但同时还是用些更恶心的手法去绕开这些瓶颈。乱，是因为在最上层">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记录一下">
-<meta property="og:url" content="http://notes.stay4it.com/2016/02/25/Mark-Down/index.html">
+<meta property="og:title" content="应用被强杀了怎么办">
+<meta property="og:url" content="http://notes.stay4it.com/2016/02/26/how-to-handle-app-force-killed/index.html">
 <meta property="og:site_name" content="Stay's notes">
-<meta property="og:description" content="select * from life">
-<meta property="og:updated_time" content="2016-02-25T09:38:06.000Z">
+<meta property="og:description" content="应用在后台运行时很容易被强杀，这很正常，但是回到前台时，很容易出现空指针的情况。怎么解决这样的问题，且看看Stay的见解。
+我们先跳出来看看android的app运行原理。app在后台被强杀，是在内存不足的情况下被强制释放了，也有一些恶心的rom会强制杀掉那些后台进程以释放缓存以提高所谓的用户体验。我们都觉得android rom很恶心，但同时还是用些更恶心的手法去绕开这些瓶颈。乱，是因为在最上层">
+<meta property="og:updated_time" content="2016-02-26T05:42:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录一下">
-<meta name="twitter:description" content="select * from life">
+<meta name="twitter:title" content="应用被强杀了怎么办">
+<meta name="twitter:description" content="应用在后台运行时很容易被强杀，这很正常，但是回到前台时，很容易出现空指针的情况。怎么解决这样的问题，且看看Stay的见解。
+我们先跳出来看看android的app运行原理。app在后台被强杀，是在内存不足的情况下被强制释放了，也有一些恶心的rom会强制杀掉那些后台进程以释放缓存以提高所谓的用户体验。我们都觉得android rom很恶心，但同时还是用些更恶心的手法去绕开这些瓶颈。乱，是因为在最上层">
 
 
 
@@ -84,7 +87,7 @@
   };
 </script>
 
-  <title> 记录一下 | Stay's notes </title>
+  <title> 应用被强杀了怎么办 | Stay's notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +237,7 @@
             
             
               
-                记录一下
+                应用被强杀了怎么办
               
             
           </h1>
@@ -246,19 +249,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-25T17:37:26+08:00" content="2016-02-25">
-              2016-02-25
+            <time itemprop="dateCreated" datetime="2016-02-26T13:35:58+08:00" content="2016-02-26">
+              2016-02-26
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/疑难杂症/" itemprop="url" rel="index">
+                    <span itemprop="name">疑难杂症</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/02/25/Mark-Down/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/25/Mark-Down/" itemprop="commentsCount"></span>
+                <a href="/2016/02/26/how-to-handle-app-force-killed/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/26/how-to-handle-app-force-killed/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -279,24 +301,62 @@
       
 
       
-        
+        <p>应用在后台运行时很容易被强杀，这很正常，但是回到前台时，很容易出现空指针的情况。怎么解决这样的问题，且看看Stay的见解。</p>
+<p>我们先跳出来看看android的app运行原理。<br>app在后台被强杀，是在内存不足的情况下被强制释放了，也有一些恶心的rom会强制杀掉那些后台进程以释放缓存以提高所谓的用户体验。<br>我们都觉得android rom很恶心，但同时还是用些更恶心的手法去绕开这些瓶颈。乱，是因为在最上层没有一个很好的约束，这也是开源的弊端。anyway。我们还是得想破脑袋来解决这些问题，否则饭碗就没了。</p>
+<p>我们先来重现这个bug：</p>
+<p>假设： App A -&gt; B -&gt; C -&gt; D<br>在D activity中点Home键后台运行，打开ddms，选中该App进程，强杀。<br>然后从“最近打开的应用”中选中该App，回到的界面是D activity，假设App中没有静态变量，这个时候是不会crash的，点击返回到C，这个时候也只是短暂黑屏后显示C界面。但如果C中有引用静态变量，并想要获取静态变量中的某个值时，就NullPointer了。</p>
+<p>以上复现的流程就几个点，我们展开说下：</p>
+<ol>
+<li>当应用被强杀，整个App进程都是被杀掉了，所有变量全都被清空了。包括Application实例。更别提那些静态变量了。</li>
+<li>虽然变量被清空了，但Android给了一些补救措施。activity栈没有被清空，也就是说A -&gt; B -&gt; C -&gt; D这个栈还保存了，只是ABCD这几个activity实例没有了。所以回到App时，显示的还是D页面</li>
+<li>另外当activity被强杀时，系统会调用onSaveInstance去让你保存一些变量，但我个人觉得面对海量的静态变量，这个根本不够用。</li>
+<li>返回到C会黑屏，是因为C要重绘，重走onCreate流程，渲染上需要点时间，所以会黑屏。</li>
+</ol>
+<p>大概是以上这些点。如果App中没有静态变量的引用，那就不用出现NullPointer这个crash，也就不需要解决。一旦你有静态变量，或者有些Application的全局变量，那就很危险了。比如登录状态，user profile等等。这些值都是空了。</p>
+<p>肯定会有人说，这没关系啊，所有的静态变量都改到单例去不就好了吗？然后附加上一些持久化cache，空了再取缓存就ok了嘛。嗯，这肯定也是一个办法，但是这样的束手束脚对开发来说也是痛苦，至少需要多30%的编码时间才能全部cover。另外，还有那么多帮你挖坑的队友，难省心啊。</p>
+<p>既然App都被强杀了，干嘛不重新走第一次启动的流程呢，别让App回到D而是启动A，这样所有的变量都是按正常的流程去初始化，也就不会空指针了，对吧？有人说这方案用户体验一点都不好呀。但哪有十全十美的事呢，是重走流程好，还是一点一个NullPointer好？好好去沟通，相信产品也不会为难你的。当然你也可以拿iOS来举例，iOS在最近打开的应用里杀了某个App，重新点击那个App，还是会重走流程的啊。</p>
+<p>如果你接受我的这个解决方案，那且想想如何让它不回到D而是重走流程呢？也就是说中断D的初始化而回到A，并且按back键，不会回到D，C，B。考虑一下。</p>
+<p>我们先实例化这个场景吧。<br>A 为App的启动页<br>B 为登录页<br>C 为首页<br>D 为二级页面</p>
+<p>简单说下解决方案，剩下的自己思考。</p>
+<ol>
+<li>把首页launchMode设置为singleTask，具体为什么我就不说了，自己google。</li>
+<li>在BaseActivity中onCreate中判断App是否被强杀，强杀就不往下走，直接重走App流程。</li>
+<li>首页起一个承接或者中转的作用，所有跨级跳转都需要通过首页来完成。</li>
+</ol>
+<p>再给个提示，以上场景的解决方案也可以用于解决其它相关问题：</p>
+<ol>
+<li>在任意页面退出App</li>
+<li>在任意页面返回到首页</li>
+<li>在任意页面注销或者token失效回到登录页</li>
+</ol>
+<p>其实最重要的知识点就是launchMode，很多人面试的时候都能背出来，甚至是原理。但真正会合理应用它们的少之又少。有的时候，技术的优劣体现于此。生搬硬套肯定是站不到最高点的。</p>
+<p>题外话：<br>当我第一次碰到这种问题的时候就在想，为啥Android非得这么来实现，既然都已经把应用强杀了，为什么还把栈信息保存下来了。既然把栈信息保存下来，为什么不把整个App变量都cache到硬盘上呢。这样还能节省ram，每个当前运行的App分到的最大内存也不用再加限制了啊。这样的话Bitmap的OOM也很难发生了。多好。好吧，iOS的内存管理貌似就是这样的机制(我这是白话文，勿较真)</p>
+<p>有很多bug都是系统级的限制，虽说没有解决不了的技术，但是偏要钻牛角尖偏要用自以为的方式去解决问题，那么就是坑自己，并且也坑了队友。</p>
+<p>做技术越久，越能感受到，难做的不是技术，而是业务。如何理解业务，以及背后的需求本质，是开发中最最重要的事情。与其盲目的拿需求就开始写代码，不如花上些时间去理解需求。弄清前因后果，想好封装与扩展。这些是对思维逻辑的锻炼，并且也是技术提升最快的方式。</p>
+
       
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android-空指针/" rel="tag">#android, 空指针</a>
+          
+        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/02/25/Mark-Down/" rel="next" title="记录一下">
+                <i class="fa fa-chevron-left"></i> 记录一下
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/26/how-to-handle-app-force-killed/" rel="prev" title="应用被强杀了怎么办">
-                应用被强杀了怎么办 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -311,10 +371,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/02/25/Mark-Down/"
-     data-title="记录一下"
+        <div class="ds-share flat" data-thread-key="2016/02/26/how-to-handle-app-force-killed/"
+     data-title="应用被强杀了怎么办"
      data-content=""
-     data-url="http://notes.stay4it.com/2016/02/25/Mark-Down/">
+     data-url="http://notes.stay4it.com/2016/02/26/how-to-handle-app-force-killed/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -341,8 +401,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/02/25/Mark-Down/"
-           data-title="记录一下" data-url="http://notes.stay4it.com/2016/02/25/Mark-Down/">
+      <div class="ds-thread" data-thread-key="2016/02/26/how-to-handle-app-force-killed/"
+           data-title="应用被强杀了怎么办" data-url="http://notes.stay4it.com/2016/02/26/how-to-handle-app-force-killed/">
       </div>
     
   </div>
