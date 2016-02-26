@@ -63,7 +63,7 @@
 <meta property="og:url" content="http://notes.stay4it.com/2016/02/26/export-jar-and-proguard/index.html">
 <meta property="og:site_name" content="Stay's notes">
 <meta property="og:description" content="&amp;#x5728;Android Studio&amp;#x4E2D;&amp;#xFF0C;&amp;#x81EA;&amp;#x5E26;&amp;#x53CD;&amp;#x7F16;&amp;#x8BD1;&amp;#x67E5;&amp;#x770B;class&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x6CA1;&amp;#x6709;&amp;#x6DF7;&amp;#x6DC6;&amp;#x7684;&amp;#x8BDD;&amp;#xFF0C;class">
-<meta property="og:updated_time" content="2016-02-26T06:36:23.000Z">
+<meta property="og:updated_time" content="2016-02-26T08:32:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Studio导出Jar包并混淆">
 <meta name="twitter:description" content="&amp;#x5728;Android Studio&amp;#x4E2D;&amp;#xFF0C;&amp;#x81EA;&amp;#x5E26;&amp;#x53CD;&amp;#x7F16;&amp;#x8BD1;&amp;#x67E5;&amp;#x770B;class&amp;#x6587;&amp;#x4EF6;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x6CA1;&amp;#x6709;&amp;#x6DF7;&amp;#x6DC6;&amp;#x7684;&amp;#x8BDD;&amp;#xFF0C;class">
@@ -310,6 +310,7 @@
         <p>&#x5728;Android Studio&#x4E2D;&#xFF0C;&#x81EA;&#x5E26;&#x53CD;&#x7F16;&#x8BD1;&#x67E5;&#x770B;class&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6DF7;&#x6DC6;&#x7684;&#x8BDD;&#xFF0C;class&#x6587;&#x4EF6;&#x8DDF;java&#x6587;&#x4EF6;&#x57FA;&#x672C;&#x6CA1;&#x6709;&#x533A;&#x522B;&#x4E86;&#xFF0C;&#x4E3A;&#x4E86;&#x4FDD;&#x62A4;&#xFF0C;&#x8FD8;&#x662F;&#x6DF7;&#x6DC6;&#x7684;&#x597D;&#x3002;</p>
 <p>&#x7F51;&#x4E0A;&#x770B;&#x4E86;&#x4E0D;&#x5C11;&#x8D44;&#x6599;&#xFF0C;&#x90FD;&#x662F;&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;proguard&#x989D;&#x5916;jar&#xFF0C;&#x76F4;&#x63A5;&#x751F;&#x6210;&#xFF0C;&#x89C9;&#x5F97;&#x4E0D;&#x65B9;&#x4FBF;&#xFF0C;&#x65E2;&#x7136;apk&#x90FD;&#x80FD;&#x6DF7;&#x6DC6;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x76F4;&#x63A5;&#x901A;&#x8FC7;Android Studio&#x6765;&#x6DF7;&#x6DC6;jar&#x5305;&#x5462;&#x3002;</p>
 <p>&#x505A;&#x6CD5;&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4E00;&#x4E2A;build&#x6587;&#x4EF6;&#xFF0C;&#x4E00;&#x4E2A;proguard&#x6587;&#x4EF6;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<a id="more"></a>
 <p>&#x9996;&#x5148;&#x8981;&#x660E;&#x767D;jar&#x4ECE;&#x54EA;&#x91CC;&#x6765;&#xFF0C;&#x4EE5;&#x524D;&#x5728;Eclipse&#x4E2D;&#x662F;&#x4E00;&#x4E2A;project&#x8BBE;&#x7F6E;&#x4E3A;library&#xFF0C;&#x7136;&#x540E;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4E3B;project&#x4F9D;&#x8D56;&#x5B83;&#x3002;build&#x4E00;&#x4E0B;&#xFF0C;&#x5728;library&#x4E2D;&#x5C31;&#x4F1A;&#x751F;&#x6210;jar&#x6587;&#x4EF6;&#x4E86;&#x3002;</p>
 <p>&#x5728;Android Studio&#x662F;module&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x5176;&#x5B9E;&#x4E5F;&#x76F8;&#x5F53;&#x4E8E;project&#x3002;&#x4E3B;app module&#x4F9D;&#x8D56;&#x5176;&#x5B83;&#x5B50;module&#xFF0C;&#x5728;&#x6253;&#x5305;&#x65F6;&#xFF0C;&#x4F1A;&#x5C06;&#x5176;&#x5B83;module&#x6253;&#x6210;aar&#xFF0C;&#x8D4B;&#x7ED9;&#x4E3B;app&#x3002;&#x6240;&#x4EE5;jar&#x662F;&#x9488;&#x5BF9;&#x6574;&#x4E2A;module&#x6765;make&#x7684;&#x3002;</p>
 <p>&#x5982;&#x679C;module&#x5185;&#x4EC5;&#x4EC5;&#x662F;java&#x4EE3;&#x7801;&#xFF0C;&#x751F;&#x6210;jar&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x8FD8;&#x6709;resource&#x6587;&#x4EF6;&#xFF0C;&#x90A3;&#x5C31;&#x5F97;&#x6253;aar&#x6587;&#x4EF6;&#x4E86;&#x3002;</p>
