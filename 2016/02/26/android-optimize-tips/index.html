@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android, Stay" />
+  <meta name="keywords" content="android,性能优化,框架," />
 
 
 
@@ -57,15 +57,16 @@
 
 
 
-<meta name="description" content="select * from life">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Stay's notes">
-<meta property="og:url" content="http://notes.stay4it.com/index.html">
+<meta name="description" content="&amp;#x6027;&amp;#x80FD;&amp;#x4F18;&amp;#x5316;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x5927;&amp;#x7684;&amp;#x8303;&amp;#x7574;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x6709;&amp;#x4EBA;&amp;#x95EE;&amp;#x4F60;&amp;#x5728;Android&amp;#x4E2D;&amp;#x5982;&amp;#x4F55;&amp;#x505A;&amp;#x6027;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些Android上的性能优化">
+<meta property="og:url" content="http://notes.stay4it.com/2016/02/26/android-optimize-tips/index.html">
 <meta property="og:site_name" content="Stay's notes">
-<meta property="og:description" content="select * from life">
+<meta property="og:description" content="&amp;#x6027;&amp;#x80FD;&amp;#x4F18;&amp;#x5316;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x5927;&amp;#x7684;&amp;#x8303;&amp;#x7574;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x6709;&amp;#x4EBA;&amp;#x95EE;&amp;#x4F60;&amp;#x5728;Android&amp;#x4E2D;&amp;#x5982;&amp;#x4F55;&amp;#x505A;&amp;#x6027;&amp;">
+<meta property="og:updated_time" content="2016-02-26T07:09:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Stay's notes">
-<meta name="twitter:description" content="select * from life">
+<meta name="twitter:title" content="那些Android上的性能优化">
+<meta name="twitter:description" content="&amp;#x6027;&amp;#x80FD;&amp;#x4F18;&amp;#x5316;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x5927;&amp;#x7684;&amp;#x8303;&amp;#x7574;&amp;#xFF0C;&amp;#x5982;&amp;#x679C;&amp;#x6709;&amp;#x4EBA;&amp;#x95EE;&amp;#x4F60;&amp;#x5728;Android&amp;#x4E2D;&amp;#x5982;&amp;#x4F55;&amp;#x505A;&amp;#x6027;&amp;">
 
 
 
@@ -83,7 +84,7 @@
   };
 </script>
 
-  <title> Stay's notes </title>
+  <title> 那些Android上的性能优化 | Stay's notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -112,9 +113,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,24 +212,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
 
+  <div id="posts" class="posts-expand">
     
-
-    
-    
-      
-      
-        
-        
-        
-      
-
-      
-    
-
-    
-      
 
   
   
@@ -250,10 +234,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/02/26/android-optimize-tips/" itemprop="url">
-                  那些Android上的性能优化
-                </a>
+                那些Android上的性能优化
               
             
           </h1>
@@ -317,9 +298,7 @@
       
 
       
-        
-          
-            <p>&#x6027;&#x80FD;&#x4F18;&#x5316;&#x662F;&#x4E00;&#x4E2A;&#x5927;&#x7684;&#x8303;&#x7574;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4EBA;&#x95EE;&#x4F60;&#x5728;Android&#x4E2D;&#x5982;&#x4F55;&#x505A;&#x6027;&#x80FD;&#x4F18;&#x5316;&#x7684;&#xFF0C;&#x4E5F;&#x8BB8;&#x90FD;&#x4E0D;&#x77E5;&#x9053;&#x4ECE;&#x54EA;&#x5F00;&#x59CB;&#x8BF4;&#x8D77;&#x3002;</p>
+        <p>&#x6027;&#x80FD;&#x4F18;&#x5316;&#x662F;&#x4E00;&#x4E2A;&#x5927;&#x7684;&#x8303;&#x7574;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4EBA;&#x95EE;&#x4F60;&#x5728;Android&#x4E2D;&#x5982;&#x4F55;&#x505A;&#x6027;&#x80FD;&#x4F18;&#x5316;&#x7684;&#xFF0C;&#x4E5F;&#x8BB8;&#x90FD;&#x4E0D;&#x77E5;&#x9053;&#x4ECE;&#x54EA;&#x5F00;&#x59CB;&#x8BF4;&#x8D77;&#x3002;</p>
 <p>&#x9996;&#x5148;&#x8981;&#x660E;&#x767D;&#x7684;&#x662F;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x7684;App&#x9700;&#x8981;&#x4F18;&#x5316;&#xFF0C;&#x6700;&#x663E;&#x800C;&#x6613;&#x89C1;&#x7684;&#x65F6;&#x523B;&#xFF1A;&#x7528;&#x6237;say&#xFF0C;&#x4EC0;&#x4E48;&#x72D7;&#x5C4E;&#xFF0C;&#x5237;&#x8FD9;&#x4E48;&#x4E45;&#x90FD;&#x6CA1;&#x53CD;&#x5E94;&#xFF0C;&#x53D6;&#x5173;&#x5378;&#x8F7D;&#x7B97;&#x4E86;&#x3002;</p>
 <p>&#x8FD9;&#x8DDF;&#x4EC0;&#x4E48;&#x6709;&#x5173;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x82CD;&#x767D;&#x7684;&#x53CD;&#x9A73;&#x4E0B;&#xFF0C;&#x5C3C;&#x739B;&#x7528;&#x6237;&#x8BBE;&#x5907;&#x8001;&#x65E7;&#x7F51;&#x53C8;&#x70C2;&#xFF0C;&#x5173;&#x6211;&#x5C41;&#x4E8B;&#xFF0C;&#x6839;&#x672C;&#x4E0D;&#x7528;&#x4F18;&#x5316;&#x3002;&#x53EF;&#x662F;&#xFF0C;&#x8001;&#x677F;&#x62CD;&#x677F;&#x4E86;&#xFF0C;&#x65BD;&#x538B;&#x7ED9;CTO&#xFF0C;&#x7136;&#x540E;CTO&#x53C8;&#x6765;&#x627E;&#x4F60;&#xFF1A;Y&#x7684;&#x4ECA;&#x5929;&#x5FC5;&#x987B;&#x7ED9;&#x6211;&#x60F3;&#x529E;&#x6CD5;&#x4F18;&#x5316;&#x4E86;&#xFF0C;&#x4E0D;&#x7136;&#x4E0D;&#x51C6;&#x56DE;&#x5BB6;&#x3002;</p>
 <p>&#x597D;&#x5427;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x4ECE;UI&#x7684;&#x8868;&#x8C61;&#x4E0A;&#x770B;&#xFF0C;App&#x53C8;&#x5361;&#x53C8;&#x6162;&#x800C;&#x4E14;&#x8FD8;&#x9519;&#x4E71;&#x3002;&#x6211;&#x4EEC;&#x8BD5;&#x7740;&#x6765;&#x5256;&#x6790;&#x4E0B;&#x5427;&#x3002;</p>
@@ -369,29 +348,68 @@
 <p>&#x53E6;&#x5916;&#x4F18;&#x5316;&#x4E5F;&#x6CA1;&#x6709;&#x7EDD;&#x5BF9;&#x7684;&#x5B8C;&#x7F8E;&#xFF0C;&#x6BCF;&#x4E00;&#x6B21;&#x4F18;&#x5316;&#x90FD;&#x662F;&#x57FA;&#x4E8E;&#x5F53;&#x524D;&#x7684;&#x4E1A;&#x52A1;&#x6765;&#x505A;&#x7684;&#xFF0C;&#x8981;&#x660E;&#x767D;&#x6C9F;&#x901A;&#x662F;&#x6700;&#x597D;&#x7684;&#x4F18;&#x5316;&#xFF0C;&#x4E0D;&#x76F2;&#x4ECE;&#xFF0C;&#x4E0D;&#x968F;&#x4FBF;&#xFF0C;&#x4E09;&#x601D;&#x800C;&#x540E;&#x884C;&#x3002;</p>
 <p>Android&#x4E0A;&#x5982;&#x4F55;&#x505A;&#x6027;&#x80FD;&#x4F18;&#x5316;&#x7684;&#xFF1F;&#x5927;&#x6982;&#x5199;&#x4E09;&#x5E74;&#x4EE3;&#x7801;&#x5C31;&#x80FD;&#x5DEE;&#x4E0D;&#x591A;&#x77E5;&#x9053;&#x4E86;&#x3002;</p>
 
-          
-        
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag">#android</a>
+          
+            <a href="/tags/性能优化/" rel="tag">#性能优化</a>
+          
+            <a href="/tags/框架/" rel="tag">#框架</a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/26/how-to-choose-open-source/" rel="next" title="这么多开源框架，该用哪个好？">
+                <i class="fa fa-chevron-left"></i> 这么多开源框架，该用哪个好？
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
 
-  </section>
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/02/26/android-optimize-tips/"
+     data-title="那些Android上的性能优化"
+     data-content=""
+     data-url="http://notes.stay4it.com/2016/02/26/android-optimize-tips/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
-  
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -399,6 +417,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/26/android-optimize-tips/"
+           data-title="那些Android上的性能优化" data-url="http://notes.stay4it.com/2016/02/26/android-optimize-tips/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -418,8 +444,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/my_avatar.jpg"
@@ -488,6 +523,23 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
       
 
     </div>
@@ -569,6 +621,167 @@
 
 
   
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
 
   
 

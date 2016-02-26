@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,应用被强杀,空指针," />
+  <meta name="keywords" content="ActivityLifecycleCallbacks,android," />
 
 
 
@@ -57,16 +57,21 @@
 
 
 
-<meta name="description" content="&amp;#x5E94;&amp;#x7528;&amp;#x5728;&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#x65F6;&amp;#x5F88;&amp;#x5BB9;&amp;#x6613;&amp;#x88AB;&amp;#x5F3A;&amp;#x6740;&amp;#xFF0C;&amp;#x8FD9;&amp;#x5F88;&amp;#x6B63;&amp;#x5E38;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x56DE;&amp;#x5230;&amp;#x524D;">
+<meta name="description" content="&amp;#x5728;&amp;#x4E00;&amp;#x4E9B;&amp;#x573A;&amp;#x666F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x7ECF;&amp;#x5E38;&amp;#x4F1A;&amp;#x9700;&amp;#x8981;&amp;#x5224;&amp;#x65AD;App&amp;#x662F;&amp;#x5426;&amp;#x5728;&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#xFF0C;&amp;#x6BD4;&amp;#x5982;&amp;#x66">
 <meta property="og:type" content="article">
-<meta property="og:title" content="应用被强杀了怎么办">
-<meta property="og:url" content="http://notes.stay4it.com/2016/02/26/how-to-handle-app-force-killed/index.html">
+<meta property="og:title" content="判断App运行是否在前台">
+<meta property="og:url" content="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/index.html">
 <meta property="og:site_name" content="Stay's notes">
-<meta property="og:description" content="&amp;#x5E94;&amp;#x7528;&amp;#x5728;&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#x65F6;&amp;#x5F88;&amp;#x5BB9;&amp;#x6613;&amp;#x88AB;&amp;#x5F3A;&amp;#x6740;&amp;#xFF0C;&amp;#x8FD9;&amp;#x5F88;&amp;#x6B63;&amp;#x5E38;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x56DE;&amp;#x5230;&amp;#x524D;">
-<meta property="og:updated_time" content="2016-02-26T05:51:30.000Z">
+<meta property="og:description" content="&amp;#x5728;&amp;#x4E00;&amp;#x4E9B;&amp;#x573A;&amp;#x666F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x7ECF;&amp;#x5E38;&amp;#x4F1A;&amp;#x9700;&amp;#x8981;&amp;#x5224;&amp;#x65AD;App&amp;#x662F;&amp;#x5426;&amp;#x5728;&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#xFF0C;&amp;#x6BD4;&amp;#x5982;&amp;#x66">
+<meta property="og:image" content="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/forground01.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/forground02.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/forground03.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/forground04.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/forground05.png">
+<meta property="og:updated_time" content="2016-02-26T06:47:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="应用被强杀了怎么办">
-<meta name="twitter:description" content="&amp;#x5E94;&amp;#x7528;&amp;#x5728;&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#x65F6;&amp;#x5F88;&amp;#x5BB9;&amp;#x6613;&amp;#x88AB;&amp;#x5F3A;&amp;#x6740;&amp;#xFF0C;&amp;#x8FD9;&amp;#x5F88;&amp;#x6B63;&amp;#x5E38;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x56DE;&amp;#x5230;&amp;#x524D;">
+<meta name="twitter:title" content="判断App运行是否在前台">
+<meta name="twitter:description" content="&amp;#x5728;&amp;#x4E00;&amp;#x4E9B;&amp;#x573A;&amp;#x666F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x7ECF;&amp;#x5E38;&amp;#x4F1A;&amp;#x9700;&amp;#x8981;&amp;#x5224;&amp;#x65AD;App&amp;#x662F;&amp;#x5426;&amp;#x5728;&amp;#x540E;&amp;#x53F0;&amp;#x8FD0;&amp;#x884C;&amp;#xFF0C;&amp;#x6BD4;&amp;#x5982;&amp;#x66">
 
 
 
@@ -84,7 +89,7 @@
   };
 </script>
 
-  <title> 应用被强杀了怎么办 | Stay's notes </title>
+  <title> 判断App运行是否在前台 | Stay's notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +239,7 @@
             
             
               
-                应用被强杀了怎么办
+                判断App运行是否在前台
               
             
           </h1>
@@ -246,7 +251,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-26T13:35:58+08:00" content="2016-02-26">
+            <time itemprop="dateCreated" datetime="2016-02-26T14:38:49+08:00" content="2016-02-26">
               2016-02-26
             </time>
           </span>
@@ -260,8 +265,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/疑难杂症/" itemprop="url" rel="index">
-                    <span itemprop="name">疑难杂症</span>
+                  <a href="/categories/小偏方/" itemprop="url" rel="index">
+                    <span itemprop="name">小偏方</span>
                   </a>
                 </span>
 
@@ -276,8 +281,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/02/26/how-to-handle-app-force-killed/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/26/how-to-handle-app-force-killed/" itemprop="commentsCount"></span>
+                <a href="/2016/02/26/check-if-app-is-running-forground/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/26/check-if-app-is-running-forground/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -298,38 +303,26 @@
       
 
       
-        <p>&#x5E94;&#x7528;&#x5728;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#x65F6;&#x5F88;&#x5BB9;&#x6613;&#x88AB;&#x5F3A;&#x6740;&#xFF0C;&#x8FD9;&#x5F88;&#x6B63;&#x5E38;&#xFF0C;&#x4F46;&#x662F;&#x56DE;&#x5230;&#x524D;&#x53F0;&#x65F6;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x7A7A;&#x6307;&#x9488;&#x7684;&#x60C5;&#x51B5;&#x3002;&#x600E;&#x4E48;&#x89E3;&#x51B3;&#x8FD9;&#x6837;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4E14;&#x770B;&#x770B;Stay&#x7684;&#x89C1;&#x89E3;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x5148;&#x8DF3;&#x51FA;&#x6765;&#x770B;&#x770B;android&#x7684;app&#x8FD0;&#x884C;&#x539F;&#x7406;&#x3002;<br>app&#x5728;&#x540E;&#x53F0;&#x88AB;&#x5F3A;&#x6740;&#xFF0C;&#x662F;&#x5728;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x88AB;&#x5F3A;&#x5236;&#x91CA;&#x653E;&#x4E86;&#xFF0C;&#x4E5F;&#x6709;&#x4E00;&#x4E9B;&#x6076;&#x5FC3;&#x7684;rom&#x4F1A;&#x5F3A;&#x5236;&#x6740;&#x6389;&#x90A3;&#x4E9B;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x4EE5;&#x91CA;&#x653E;&#x7F13;&#x5B58;&#x4EE5;&#x63D0;&#x9AD8;&#x6240;&#x8C13;&#x7684;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x3002;<br>&#x6211;&#x4EEC;&#x90FD;&#x89C9;&#x5F97;android rom&#x5F88;&#x6076;&#x5FC3;&#xFF0C;&#x4F46;&#x540C;&#x65F6;&#x8FD8;&#x662F;&#x7528;&#x4E9B;&#x66F4;&#x6076;&#x5FC3;&#x7684;&#x624B;&#x6CD5;&#x53BB;&#x7ED5;&#x5F00;&#x8FD9;&#x4E9B;&#x74F6;&#x9888;&#x3002;&#x4E71;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x5728;&#x6700;&#x4E0A;&#x5C42;&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x597D;&#x7684;&#x7EA6;&#x675F;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x5F00;&#x6E90;&#x7684;&#x5F0A;&#x7AEF;&#x3002;anyway&#x3002;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x5F97;&#x60F3;&#x7834;&#x8111;&#x888B;&#x6765;&#x89E3;&#x51B3;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#xFF0C;&#x5426;&#x5219;&#x996D;&#x7897;&#x5C31;&#x6CA1;&#x4E86;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x5148;&#x6765;&#x91CD;&#x73B0;&#x8FD9;&#x4E2A;bug&#xFF1A;</p>
-<p>&#x5047;&#x8BBE;&#xFF1A; App A -&gt; B -&gt; C -&gt; D<br>&#x5728;D activity&#x4E2D;&#x70B9;Home&#x952E;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#xFF0C;&#x6253;&#x5F00;ddms&#xFF0C;&#x9009;&#x4E2D;&#x8BE5;App&#x8FDB;&#x7A0B;&#xFF0C;&#x5F3A;&#x6740;&#x3002;<br>&#x7136;&#x540E;&#x4ECE;&#x201C;&#x6700;&#x8FD1;&#x6253;&#x5F00;&#x7684;&#x5E94;&#x7528;&#x201D;&#x4E2D;&#x9009;&#x4E2D;&#x8BE5;App&#xFF0C;&#x56DE;&#x5230;&#x7684;&#x754C;&#x9762;&#x662F;D activity&#xFF0C;&#x5047;&#x8BBE;App&#x4E2D;&#x6CA1;&#x6709;&#x9759;&#x6001;&#x53D8;&#x91CF;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x662F;&#x4E0D;&#x4F1A;crash&#x7684;&#xFF0C;&#x70B9;&#x51FB;&#x8FD4;&#x56DE;&#x5230;C&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x4E5F;&#x53EA;&#x662F;&#x77ED;&#x6682;&#x9ED1;&#x5C4F;&#x540E;&#x663E;&#x793A;C&#x754C;&#x9762;&#x3002;&#x4F46;&#x5982;&#x679C;C&#x4E2D;&#x6709;&#x5F15;&#x7528;&#x9759;&#x6001;&#x53D8;&#x91CF;&#xFF0C;&#x5E76;&#x60F3;&#x8981;&#x83B7;&#x53D6;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x67D0;&#x4E2A;&#x503C;&#x65F6;&#xFF0C;&#x5C31;NullPointer&#x4E86;&#x3002;</p>
-<p>&#x4EE5;&#x4E0A;&#x590D;&#x73B0;&#x7684;&#x6D41;&#x7A0B;&#x5C31;&#x51E0;&#x4E2A;&#x70B9;&#xFF0C;&#x6211;&#x4EEC;&#x5C55;&#x5F00;&#x8BF4;&#x4E0B;&#xFF1A;</p>
-<ol>
-<li>&#x5F53;&#x5E94;&#x7528;&#x88AB;&#x5F3A;&#x6740;&#xFF0C;&#x6574;&#x4E2A;App&#x8FDB;&#x7A0B;&#x90FD;&#x662F;&#x88AB;&#x6740;&#x6389;&#x4E86;&#xFF0C;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x5168;&#x90FD;&#x88AB;&#x6E05;&#x7A7A;&#x4E86;&#x3002;&#x5305;&#x62EC;Application&#x5B9E;&#x4F8B;&#x3002;&#x66F4;&#x522B;&#x63D0;&#x90A3;&#x4E9B;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x4E86;&#x3002;</li>
-<li>&#x867D;&#x7136;&#x53D8;&#x91CF;&#x88AB;&#x6E05;&#x7A7A;&#x4E86;&#xFF0C;&#x4F46;Android&#x7ED9;&#x4E86;&#x4E00;&#x4E9B;&#x8865;&#x6551;&#x63AA;&#x65BD;&#x3002;activity&#x6808;&#x6CA1;&#x6709;&#x88AB;&#x6E05;&#x7A7A;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;A -&gt; B -&gt; C -&gt; D&#x8FD9;&#x4E2A;&#x6808;&#x8FD8;&#x4FDD;&#x5B58;&#x4E86;&#xFF0C;&#x53EA;&#x662F;ABCD&#x8FD9;&#x51E0;&#x4E2A;activity&#x5B9E;&#x4F8B;&#x6CA1;&#x6709;&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x56DE;&#x5230;App&#x65F6;&#xFF0C;&#x663E;&#x793A;&#x7684;&#x8FD8;&#x662F;D&#x9875;&#x9762;</li>
-<li>&#x53E6;&#x5916;&#x5F53;activity&#x88AB;&#x5F3A;&#x6740;&#x65F6;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x8C03;&#x7528;onSaveInstance&#x53BB;&#x8BA9;&#x4F60;&#x4FDD;&#x5B58;&#x4E00;&#x4E9B;&#x53D8;&#x91CF;&#xFF0C;&#x4F46;&#x6211;&#x4E2A;&#x4EBA;&#x89C9;&#x5F97;&#x9762;&#x5BF9;&#x6D77;&#x91CF;&#x7684;&#x9759;&#x6001;&#x53D8;&#x91CF;&#xFF0C;&#x8FD9;&#x4E2A;&#x6839;&#x672C;&#x4E0D;&#x591F;&#x7528;&#x3002;</li>
-<li>&#x8FD4;&#x56DE;&#x5230;C&#x4F1A;&#x9ED1;&#x5C4F;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;C&#x8981;&#x91CD;&#x7ED8;&#xFF0C;&#x91CD;&#x8D70;onCreate&#x6D41;&#x7A0B;&#xFF0C;&#x6E32;&#x67D3;&#x4E0A;&#x9700;&#x8981;&#x70B9;&#x65F6;&#x95F4;&#xFF0C;&#x6240;&#x4EE5;&#x4F1A;&#x9ED1;&#x5C4F;&#x3002;</li>
-</ol>
-<p>&#x5927;&#x6982;&#x662F;&#x4EE5;&#x4E0A;&#x8FD9;&#x4E9B;&#x70B9;&#x3002;&#x5982;&#x679C;App&#x4E2D;&#x6CA1;&#x6709;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x90A3;&#x5C31;&#x4E0D;&#x7528;&#x51FA;&#x73B0;NullPointer&#x8FD9;&#x4E2A;crash&#xFF0C;&#x4E5F;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x3002;&#x4E00;&#x65E6;&#x4F60;&#x6709;&#x9759;&#x6001;&#x53D8;&#x91CF;&#xFF0C;&#x6216;&#x8005;&#x6709;&#x4E9B;Application&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x90A3;&#x5C31;&#x5F88;&#x5371;&#x9669;&#x4E86;&#x3002;&#x6BD4;&#x5982;&#x767B;&#x5F55;&#x72B6;&#x6001;&#xFF0C;user profile&#x7B49;&#x7B49;&#x3002;&#x8FD9;&#x4E9B;&#x503C;&#x90FD;&#x662F;&#x7A7A;&#x4E86;&#x3002;</p>
-<p>&#x80AF;&#x5B9A;&#x4F1A;&#x6709;&#x4EBA;&#x8BF4;&#xFF0C;&#x8FD9;&#x6CA1;&#x5173;&#x7CFB;&#x554A;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x90FD;&#x6539;&#x5230;&#x5355;&#x4F8B;&#x53BB;&#x4E0D;&#x5C31;&#x597D;&#x4E86;&#x5417;&#xFF1F;&#x7136;&#x540E;&#x9644;&#x52A0;&#x4E0A;&#x4E00;&#x4E9B;&#x6301;&#x4E45;&#x5316;cache&#xFF0C;&#x7A7A;&#x4E86;&#x518D;&#x53D6;&#x7F13;&#x5B58;&#x5C31;ok&#x4E86;&#x561B;&#x3002;&#x55EF;&#xFF0C;&#x8FD9;&#x80AF;&#x5B9A;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x529E;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x675F;&#x624B;&#x675F;&#x811A;&#x5BF9;&#x5F00;&#x53D1;&#x6765;&#x8BF4;&#x4E5F;&#x662F;&#x75DB;&#x82E6;&#xFF0C;&#x81F3;&#x5C11;&#x9700;&#x8981;&#x591A;30%&#x7684;&#x7F16;&#x7801;&#x65F6;&#x95F4;&#x624D;&#x80FD;&#x5168;&#x90E8;cover&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x8FD8;&#x6709;&#x90A3;&#x4E48;&#x591A;&#x5E2E;&#x4F60;&#x6316;&#x5751;&#x7684;&#x961F;&#x53CB;&#xFF0C;&#x96BE;&#x7701;&#x5FC3;&#x554A;&#x3002;</p>
-<p>&#x65E2;&#x7136;App&#x90FD;&#x88AB;&#x5F3A;&#x6740;&#x4E86;&#xFF0C;&#x5E72;&#x561B;&#x4E0D;&#x91CD;&#x65B0;&#x8D70;&#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x7684;&#x6D41;&#x7A0B;&#x5462;&#xFF0C;&#x522B;&#x8BA9;App&#x56DE;&#x5230;D&#x800C;&#x662F;&#x542F;&#x52A8;A&#xFF0C;&#x8FD9;&#x6837;&#x6240;&#x6709;&#x7684;&#x53D8;&#x91CF;&#x90FD;&#x662F;&#x6309;&#x6B63;&#x5E38;&#x7684;&#x6D41;&#x7A0B;&#x53BB;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x4E5F;&#x5C31;&#x4E0D;&#x4F1A;&#x7A7A;&#x6307;&#x9488;&#x4E86;&#xFF0C;&#x5BF9;&#x5427;&#xFF1F;&#x6709;&#x4EBA;&#x8BF4;&#x8FD9;&#x65B9;&#x6848;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x4E00;&#x70B9;&#x90FD;&#x4E0D;&#x597D;&#x5440;&#x3002;&#x4F46;&#x54EA;&#x6709;&#x5341;&#x5168;&#x5341;&#x7F8E;&#x7684;&#x4E8B;&#x5462;&#xFF0C;&#x662F;&#x91CD;&#x8D70;&#x6D41;&#x7A0B;&#x597D;&#xFF0C;&#x8FD8;&#x662F;&#x4E00;&#x70B9;&#x4E00;&#x4E2A;NullPointer&#x597D;&#xFF1F;&#x597D;&#x597D;&#x53BB;&#x6C9F;&#x901A;&#xFF0C;&#x76F8;&#x4FE1;&#x4EA7;&#x54C1;&#x4E5F;&#x4E0D;&#x4F1A;&#x4E3A;&#x96BE;&#x4F60;&#x7684;&#x3002;&#x5F53;&#x7136;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x62FF;iOS&#x6765;&#x4E3E;&#x4F8B;&#xFF0C;iOS&#x5728;&#x6700;&#x8FD1;&#x6253;&#x5F00;&#x7684;&#x5E94;&#x7528;&#x91CC;&#x6740;&#x4E86;&#x67D0;&#x4E2A;App&#xFF0C;&#x91CD;&#x65B0;&#x70B9;&#x51FB;&#x90A3;&#x4E2A;App&#xFF0C;&#x8FD8;&#x662F;&#x4F1A;&#x91CD;&#x8D70;&#x6D41;&#x7A0B;&#x7684;&#x554A;&#x3002;</p>
-<p>&#x5982;&#x679C;&#x4F60;&#x63A5;&#x53D7;&#x6211;&#x7684;&#x8FD9;&#x4E2A;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x90A3;&#x4E14;&#x60F3;&#x60F3;&#x5982;&#x4F55;&#x8BA9;&#x5B83;&#x4E0D;&#x56DE;&#x5230;D&#x800C;&#x662F;&#x91CD;&#x8D70;&#x6D41;&#x7A0B;&#x5462;&#xFF1F;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x4E2D;&#x65AD;D&#x7684;&#x521D;&#x59CB;&#x5316;&#x800C;&#x56DE;&#x5230;A&#xFF0C;&#x5E76;&#x4E14;&#x6309;back&#x952E;&#xFF0C;&#x4E0D;&#x4F1A;&#x56DE;&#x5230;D&#xFF0C;C&#xFF0C;B&#x3002;&#x8003;&#x8651;&#x4E00;&#x4E0B;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x5148;&#x5B9E;&#x4F8B;&#x5316;&#x8FD9;&#x4E2A;&#x573A;&#x666F;&#x5427;&#x3002;<br>A &#x4E3A;App&#x7684;&#x542F;&#x52A8;&#x9875;<br>B &#x4E3A;&#x767B;&#x5F55;&#x9875;<br>C &#x4E3A;&#x9996;&#x9875;<br>D &#x4E3A;&#x4E8C;&#x7EA7;&#x9875;&#x9762;</p>
-<p>&#x7B80;&#x5355;&#x8BF4;&#x4E0B;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x81EA;&#x5DF1;&#x601D;&#x8003;&#x3002;</p>
-<ol>
-<li>&#x628A;&#x9996;&#x9875;launchMode&#x8BBE;&#x7F6E;&#x4E3A;singleTask&#xFF0C;&#x5177;&#x4F53;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x5C31;&#x4E0D;&#x8BF4;&#x4E86;&#xFF0C;&#x81EA;&#x5DF1;google&#x3002;</li>
-<li>&#x5728;BaseActivity&#x4E2D;onCreate&#x4E2D;&#x5224;&#x65AD;App&#x662F;&#x5426;&#x88AB;&#x5F3A;&#x6740;&#xFF0C;&#x5F3A;&#x6740;&#x5C31;&#x4E0D;&#x5F80;&#x4E0B;&#x8D70;&#xFF0C;&#x76F4;&#x63A5;&#x91CD;&#x8D70;App&#x6D41;&#x7A0B;&#x3002;</li>
-<li>&#x9996;&#x9875;&#x8D77;&#x4E00;&#x4E2A;&#x627F;&#x63A5;&#x6216;&#x8005;&#x4E2D;&#x8F6C;&#x7684;&#x4F5C;&#x7528;&#xFF0C;&#x6240;&#x6709;&#x8DE8;&#x7EA7;&#x8DF3;&#x8F6C;&#x90FD;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x9996;&#x9875;&#x6765;&#x5B8C;&#x6210;&#x3002;</li>
-</ol>
-<p>&#x518D;&#x7ED9;&#x4E2A;&#x63D0;&#x793A;&#xFF0C;&#x4EE5;&#x4E0A;&#x573A;&#x666F;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x89E3;&#x51B3;&#x5176;&#x5B83;&#x76F8;&#x5173;&#x95EE;&#x9898;&#xFF1A;</p>
-<ol>
-<li>&#x5728;&#x4EFB;&#x610F;&#x9875;&#x9762;&#x9000;&#x51FA;App</li>
-<li>&#x5728;&#x4EFB;&#x610F;&#x9875;&#x9762;&#x8FD4;&#x56DE;&#x5230;&#x9996;&#x9875;</li>
-<li>&#x5728;&#x4EFB;&#x610F;&#x9875;&#x9762;&#x6CE8;&#x9500;&#x6216;&#x8005;token&#x5931;&#x6548;&#x56DE;&#x5230;&#x767B;&#x5F55;&#x9875;</li>
-</ol>
-<p>&#x5176;&#x5B9E;&#x6700;&#x91CD;&#x8981;&#x7684;&#x77E5;&#x8BC6;&#x70B9;&#x5C31;&#x662F;launchMode&#xFF0C;&#x5F88;&#x591A;&#x4EBA;&#x9762;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x90FD;&#x80FD;&#x80CC;&#x51FA;&#x6765;&#xFF0C;&#x751A;&#x81F3;&#x662F;&#x539F;&#x7406;&#x3002;&#x4F46;&#x771F;&#x6B63;&#x4F1A;&#x5408;&#x7406;&#x5E94;&#x7528;&#x5B83;&#x4EEC;&#x7684;&#x5C11;&#x4E4B;&#x53C8;&#x5C11;&#x3002;&#x6709;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6280;&#x672F;&#x7684;&#x4F18;&#x52A3;&#x4F53;&#x73B0;&#x4E8E;&#x6B64;&#x3002;&#x751F;&#x642C;&#x786C;&#x5957;&#x80AF;&#x5B9A;&#x662F;&#x7AD9;&#x4E0D;&#x5230;&#x6700;&#x9AD8;&#x70B9;&#x7684;&#x3002;</p>
-<p>&#x9898;&#x5916;&#x8BDD;&#xFF1A;<br>&#x5F53;&#x6211;&#x7B2C;&#x4E00;&#x6B21;&#x78B0;&#x5230;&#x8FD9;&#x79CD;&#x95EE;&#x9898;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x5728;&#x60F3;&#xFF0C;&#x4E3A;&#x5565;Android&#x975E;&#x5F97;&#x8FD9;&#x4E48;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x65E2;&#x7136;&#x90FD;&#x5DF2;&#x7ECF;&#x628A;&#x5E94;&#x7528;&#x5F3A;&#x6740;&#x4E86;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x628A;&#x6808;&#x4FE1;&#x606F;&#x4FDD;&#x5B58;&#x4E0B;&#x6765;&#x4E86;&#x3002;&#x65E2;&#x7136;&#x628A;&#x6808;&#x4FE1;&#x606F;&#x4FDD;&#x5B58;&#x4E0B;&#x6765;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x628A;&#x6574;&#x4E2A;App&#x53D8;&#x91CF;&#x90FD;cache&#x5230;&#x786C;&#x76D8;&#x4E0A;&#x5462;&#x3002;&#x8FD9;&#x6837;&#x8FD8;&#x80FD;&#x8282;&#x7701;ram&#xFF0C;&#x6BCF;&#x4E2A;&#x5F53;&#x524D;&#x8FD0;&#x884C;&#x7684;App&#x5206;&#x5230;&#x7684;&#x6700;&#x5927;&#x5185;&#x5B58;&#x4E5F;&#x4E0D;&#x7528;&#x518D;&#x52A0;&#x9650;&#x5236;&#x4E86;&#x554A;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x8BDD;Bitmap&#x7684;OOM&#x4E5F;&#x5F88;&#x96BE;&#x53D1;&#x751F;&#x4E86;&#x3002;&#x591A;&#x597D;&#x3002;&#x597D;&#x5427;&#xFF0C;iOS&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x8C8C;&#x4F3C;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x673A;&#x5236;(&#x6211;&#x8FD9;&#x662F;&#x767D;&#x8BDD;&#x6587;&#xFF0C;&#x52FF;&#x8F83;&#x771F;)</p>
-<p>&#x6709;&#x5F88;&#x591A;bug&#x90FD;&#x662F;&#x7CFB;&#x7EDF;&#x7EA7;&#x7684;&#x9650;&#x5236;&#xFF0C;&#x867D;&#x8BF4;&#x6CA1;&#x6709;&#x89E3;&#x51B3;&#x4E0D;&#x4E86;&#x7684;&#x6280;&#x672F;&#xFF0C;&#x4F46;&#x662F;&#x504F;&#x8981;&#x94BB;&#x725B;&#x89D2;&#x5C16;&#x504F;&#x8981;&#x7528;&#x81EA;&#x4EE5;&#x4E3A;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x662F;&#x5751;&#x81EA;&#x5DF1;&#xFF0C;&#x5E76;&#x4E14;&#x4E5F;&#x5751;&#x4E86;&#x961F;&#x53CB;&#x3002;</p>
-<p>&#x505A;&#x6280;&#x672F;&#x8D8A;&#x4E45;&#xFF0C;&#x8D8A;&#x80FD;&#x611F;&#x53D7;&#x5230;&#xFF0C;&#x96BE;&#x505A;&#x7684;&#x4E0D;&#x662F;&#x6280;&#x672F;&#xFF0C;&#x800C;&#x662F;&#x4E1A;&#x52A1;&#x3002;&#x5982;&#x4F55;&#x7406;&#x89E3;&#x4E1A;&#x52A1;&#xFF0C;&#x4EE5;&#x53CA;&#x80CC;&#x540E;&#x7684;&#x9700;&#x6C42;&#x672C;&#x8D28;&#xFF0C;&#x662F;&#x5F00;&#x53D1;&#x4E2D;&#x6700;&#x6700;&#x91CD;&#x8981;&#x7684;&#x4E8B;&#x60C5;&#x3002;&#x4E0E;&#x5176;&#x76F2;&#x76EE;&#x7684;&#x62FF;&#x9700;&#x6C42;&#x5C31;&#x5F00;&#x59CB;&#x5199;&#x4EE3;&#x7801;&#xFF0C;&#x4E0D;&#x5982;&#x82B1;&#x4E0A;&#x4E9B;&#x65F6;&#x95F4;&#x53BB;&#x7406;&#x89E3;&#x9700;&#x6C42;&#x3002;&#x5F04;&#x6E05;&#x524D;&#x56E0;&#x540E;&#x679C;&#xFF0C;&#x60F3;&#x597D;&#x5C01;&#x88C5;&#x4E0E;&#x6269;&#x5C55;&#x3002;&#x8FD9;&#x4E9B;&#x662F;&#x5BF9;&#x601D;&#x7EF4;&#x903B;&#x8F91;&#x7684;&#x953B;&#x70BC;&#xFF0C;&#x5E76;&#x4E14;&#x4E5F;&#x662F;&#x6280;&#x672F;&#x63D0;&#x5347;&#x6700;&#x5FEB;&#x7684;&#x65B9;&#x5F0F;&#x3002;</p>
+        <p>&#x5728;&#x4E00;&#x4E9B;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x7ECF;&#x5E38;&#x4F1A;&#x9700;&#x8981;&#x5224;&#x65AD;App&#x662F;&#x5426;&#x5728;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#xFF0C;&#x6BD4;&#x5982;&#x662F;&#x5426;&#x663E;&#x793A;&#x89E3;&#x9501;&#x754C;&#x9762;&#xFF0C;&#x6536;&#x5230;&#x65B0;&#x6D88;&#x606F;&#x662F;&#x5426;&#x663E;&#x793A;Notification&#x7B49;&#x3002;&#x9700;&#x6C42;&#x53EF;&#x80FD;&#x662F;&#x591A;&#x6837;&#x5316;&#x7684;&#xFF0C;&#x4F46;&#x6240;&#x4F9D;&#x4ED7;&#x7684;&#x539F;&#x7406;&#x662F;&#x76F8;&#x901A;&#x7684;&#xFF0C;&#x4ECA;&#x5929;Stay&#x6253;&#x7B97;&#x8BF4;&#x8BF4;&#x8FD9;&#x4E9B;&#x9700;&#x6C42;&#x7684;&#x6700;&#x4F18;&#x89E3;&#x3002;</p>
+<p>&#x5F53;&#x7136;&#xFF0C;Stay&#x80AF;&#x5B9A;&#x4E0D;&#x4F1A;&#x8BF4;&#x53BB;for loop&#x5224;&#x65AD;&#x5F53;&#x524D;runningProcess&#x6216;&#x8005;runningTasks&#x3002;&#x6BD4;&#x5982;&#xFF1A;</p>
+<p>&#x8FD9;&#x6837;<br><img src="/2016/02/26/check-if-app-is-running-forground/forground01.png" alt="forground01.png" title=""><br>&#x6216;&#x8005;&#x8FD9;&#x6837;<br><img src="/2016/02/26/check-if-app-is-running-forground/forground02.png" alt="forground02.png" title=""></p>
+<p>&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x8D77;&#x6765;&#x611F;&#x89C9;&#x5C31;&#x50CF;&#x662F;&#x5728;&#x7528;Windows&#x7CFB;&#x7EDF;&#x91CC;&#x7684;&#x4EFB;&#x52A1;&#x7BA1;&#x7406;&#x5668;&#xFF0C;&#x771F;&#x662F;&#x8BA9;&#x4EBA;&#x86CB;&#x75BC;&#x3002;&#x6211;&#x4EEC;&#x6682;&#x4E14;&#x4E0D;&#x53BB;&#x8BA1;&#x8F83;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF0C;&#x5C31;&#x8BF4;&#x4E3A;&#x5565;Android&#x8FDE;&#x4E2A;&#x50CF;&#x6837;&#x7684;API&#x90FD;&#x4E0D;&#x7ED9;&#x6211;&#xFF0C;&#x7740;&#x5B9E;&#x8BA9;&#x4EBA;&#x90C1;&#x95F7;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5E26;&#x7740;&#x8FD9;&#x6837;&#x7684;&#x8D28;&#x7591;&#x53BB;&#x8C03;&#x7814;&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x8FD8;&#x771F;&#x6709;&#x5176;&#x4ED6;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>Android&#x5728;SDK 14&#x7684;&#x65F6;&#x5019;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;Callback&#x3002;ActivityLifecycleCallbacks&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;Callback&#x62FF;&#x5230;App&#x6240;&#x6709;Activity&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x56DE;&#x8C03;&#x3002;&#x770B;&#x56FE;&#xFF1A;<br><img src="/2016/02/26/check-if-app-is-running-forground/forground03.png" alt="forground03.png" title=""></p>
+<p>&#x8FD9;&#x4E2A;Callback&#x5199;&#x5728;Application&#x91CC;&#x7684;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5728;Application&#x521D;&#x59CB;&#x5316;&#x7684;&#x65F6;&#x5019;&#x6765;&#x6CE8;&#x518C;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5199;&#x4E2A;&#x5355;&#x4F8B;&#x7C7B;&#x6765;cache&#x8FD9;&#x4E9B;status&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x53EB;&#x5B83;AppStatusTracker&#x3002;&#x5728;Application&#x7684;onCreate()&#x91CC;&#x8BA9;AppStatusTracker&#x6CE8;&#x518C;ActivityLifecycleCallbacks&#x3002;</p>
+<p>&#x62FF;&#x5230;&#x8FD9;&#x4E9B;Callback&#x6709;&#x4EC0;&#x4E48;&#x7528;&#x5462;&#xFF0C;&#x6211;&#x600E;&#x4E48;&#x80FD;&#x77E5;&#x9053;App&#x662F;&#x5426;&#x5728;&#x524D;&#x53F0;&#x8FD0;&#x884C;&#x5462;&#x3002;<br>&#x522B;&#x6025;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x8BF4;&#x8BF4;Activity&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x8FD9;&#x662F;&#x9762;&#x8BD5;&#x65F6;&#x5FC5;&#x95EE;&#x9898;&#xFF0C;&#x867D;&#x7136;&#x6709;&#x5B98;&#x65B9;&#x7B54;&#x6848;&#xFF0C;&#x4F46;&#x771F;&#x6B63;&#x7406;&#x89E3;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5E76;&#x7075;&#x6D3B;&#x8FD0;&#x7528;&#x7684;&#x4E0D;&#x591A;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x6765;&#x8BBE;&#x60F3;&#x4E0B;&#x5982;&#x679C;Activity&#x8C03;&#x7528;&#x4E86;onResume()&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;Activity&#x80AF;&#x5B9A;&#x662F;&#x53EF;&#x89C1;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8FD0;&#x884C;&#x5728;&#x524D;&#x53F0;&#x7684;&#x3002;&#x5982;&#x679C;&#x8C03;&#x7528;&#x4E86;onPause()&#xFF0C;&#x4E14;&#x6CA1;&#x6709;Activity&#x6765;&#x8C03;&#x7528;onResume()&#xFF0C;&#x90A3;&#x4E48;App&#x8981;&#x8DD1;&#x5230;&#x540E;&#x53F0;&#x53BB;&#x4E86;&#x3002;&#x81F3;&#x4E8E;&#x5B83;&#x662F;&#x70B9;&#x4E86;home&#x952E;&#x8FD8;&#x662F;back&#x952E;&#x6211;&#x90FD;&#x4E0D;&#x7BA1;&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x8FD9;&#x6837;&#x7684;&#x5224;&#x65AD;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x5229;&#x7528;ActivityLifecycleCallbacks&#x56DE;&#x8C03;&#x7684;onActivityResumed()&#x548C;onActivityPaused()&#x65B9;&#x6CD5;&#x6765;&#x8BA1;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x53EA;&#x6709;&#x4E00;&#x4E2A;resumeCount&#xFF0C;&#x90A3;&#x4E48;&#x5F53;&#x524D;App&#x5728;&#x524D;&#x53F0;&#xFF0C;&#x5982;&#x679C;&#x6728;&#x6709;resumeCount&#xFF0C;&#x5B83;&#x5C31;&#x5728;&#x540E;&#x53F0;&#x3002;</p>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x5C31;&#x8FD9;&#x4E48;&#x6109;&#x5FEB;&#x7684;&#x89E3;&#x51B3;&#x4E86;&#xFF0C;&#x518D;&#x4E5F;&#x4E0D;&#x7528;for loop&#x4E86;&#x3002;&#x4F46;&#x662F;&#x5F88;&#x5FEB;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#xFF0C;&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x5EF6;&#x65F6;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x5224;&#x65AD;&#x4E0D;&#x51C6;&#x786E;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5047;&#x8BBE;&#x6709;&#x4E24;&#x4E2A;Activities&#xFF0C;&#x4E00;&#x4E2A;A&#xFF0C;&#x4E00;&#x4E2A;B&#xFF0C;&#x4ECE;A&#x8DF3;&#x8F6C;&#x5230;B&#xFF0C;&#x751F;&#x547D;&#x5468;&#x671F;&#x600E;&#x4E48;&#x8D70;&#x7684;&#xFF1F; A.onPause() -&gt; B.onResume() &#x5BF9;&#x5E94;&#x5230;ActivityLifecycleCallbacks&#x91CC;&#x662F;onActivityPaused(A) -&gt; onActivityResumed(B)&#xFF0C;&#x521A;&#x624D;&#x6211;&#x4EEC;&#x8BF4;&#x7684;&#x8BA1;&#x6570;resumeCount&#xFF0C;&#x5728;onActivityPaused()&#x91CC;&#x2013;&#xFF0C;&#x5728;onActivityResumed()&#x91CC;++&#xFF0C; &#x6839;&#x636E;&#x8FD9;&#x6837;&#x7684;&#x5224;&#x65AD;&#x4F1A;&#x6709;&#x4E2A;&#x77ED;&#x6682;&#x7684;&#x95F4;&#x9694;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5728;A&#x7684;onPause()&#x5230;B&#x7684;onResume()&#x4E4B;&#x95F4;&#xFF0C;App&#x662F;&#x8FD0;&#x884C;&#x5728;&#x540E;&#x53F0;&#x7684;&#xFF0C;&#x8FD9;&#x6837;&#x903B;&#x8F91;&#x80AF;&#x5B9A;&#x5C31;&#x4E0D;&#x5BF9;&#x4E86;&#x3002;</p>
+<p>&#x90A3;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x5462;&#xFF1F;&#x5982;&#x679C;&#x4F60;&#x6253;&#x5370;&#x8FC7;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x54EA;&#x4E9B;&#x65B9;&#x6CD5;&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x662F;Activity&#x95F4;&#x5207;&#x6362;&#x7684;&#x6B65;&#x9AA4;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;<br><img src="/2016/02/26/check-if-app-is-running-forground/forground04.png" alt="forground04.png" title=""></p>
+<p>&#x4ECE;WelcomeActivity&#x8DF3;&#x8F6C;&#x5230;GestureActivity&#x3002;&#x8FD9;&#x91CC;&#x53EA;&#x8BF4;onStart, onResume&#x8FD9;&#x4E9B;&#x56DE;&#x8C03;<br>A.onPause() -&gt; B.onStart() -&gt; B.onResume() -&gt; A.onStop()</p>
+<p>&#x901A;&#x8FC7;&#x8FD9;&#x4E9B;&#x56DE;&#x8C03;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x8FD9;&#x4E2A;&#x8BA1;&#x6570;&#x653E;&#x5728;onStart()&#x548C;onStop()&#x4E2D;&#x53BB;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x4F1A;&#x5B58;&#x5728;&#x90A3;&#x4E2A;&#x77ED;&#x6682;&#x95F4;&#x9694;&#x3002;resumeCount==1&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x662F;&#x524D;&#x53F0;&#xFF0C;resumeCount==0&#xFF0C;&#x90A3;&#x5C31;&#x662F;&#x540E;&#x53F0;&#x3002;&#x8FD9;&#x6837;&#x5224;&#x65AD;&#x5F88;&#x5F88;&#x7B80;&#x5355;&#x4E86;&#x5427;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x518D;&#x8BF4;&#xFF0C;&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x6765;&#x663E;&#x793A;&#x624B;&#x52BF;&#x89E3;&#x9501;&#x754C;&#x9762;&#x3002;<br>&#x6211;&#x7684;&#x9700;&#x6C42;&#x662F;&#x5F53;&#x7528;&#x6237;&#x9501;&#x5C4F;&#x540E;&#x518D;&#x89E3;&#x9501;&#x6216;&#x8005;&#x5207;&#x6362;&#x5230;&#x540E;&#x53F0;10&#x5206;&#x949F;&#x540E;&#x663E;&#x793A;&#x624B;&#x52BF;&#x89E3;&#x9501;&#x754C;&#x9762;&#x3002;<br>&#x6211;&#x4EEC;&#x62C6;&#x5206;&#x4E0B;&#x9700;&#x6C42;&#xFF0C;&#x5148;&#x8BF4;&#x9501;&#x5C4F;&#xFF0C;&#x89E3;&#x9501;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x662F;&#x6709;BroadCastReciever&#x6765;&#x63A5;&#x6536;&#x7684;&#xFF0C;&#x6CE8;&#x518C;&#x4E0B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x6BCF;&#x6B21;&#x6536;&#x5230;&#x9501;&#x5C4F;ACTION_SCREEN_OFF&#x7684;action&#x65F6;&#xFF0C;&#x5C06;AppStatusTracker&#x91CC;&#x7684;isScreenOff&#x8BBE;&#x7F6E;&#x4E3A;true&#x3002;<br>&#x5F53;onActivityResumed()&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x518D;&#x5C06;isScreenOff&#x8BBE;&#x4E3A;false&#x3002;</p>
+<p>&#x518D;&#x8BF4;&#x5207;&#x6362;&#x5230;&#x540E;&#x53F0;10&#x5206;&#x949F;&#x540E;&#x663E;&#x793A;&#x624B;&#x52BF;&#x89E3;&#x9501;&#x3002;&#x8FD9;&#x4E2A;&#x53EA;&#x9700;&#x8981;&#x5728;onActivityStop()&#x65F6;&#x66F4;&#x65B0;&#x4E0B;lastBackgroudTimestamp&#x5C31;&#x53EF;&#x4EE5;&#x4E86;</p>
+<p>&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;<br><img src="/2016/02/26/check-if-app-is-running-forground/forground05.png" alt="forground05.png" title=""></p>
+<p>&#x539F;&#x7406;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x662F;&#x6D89;&#x53CA;&#x5230;&#x7684;&#x77E5;&#x8BC6;&#x70B9;&#x5F88;&#x91CD;&#x8981;&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x5199;&#x5199;&#x6D4B;&#x8BD5;&#x4E0B;&#xFF0C;&#x522B;&#x603B;&#x4F9D;&#x8D56;&#x522B;&#x4EBA;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x522B;&#x4EBA;&#x7684;&#x7C7B;&#x5E93;&#xFF0C;&#x6280;&#x672F;&#x5B9E;&#x73B0;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x9700;&#x6C42;&#x7684;&#x53D8;&#x4F53;&#x6269;&#x5C55;&#x6709;&#x65F6;&#x5019;&#x8FD8;&#x662F;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x6765;&#x60F3;&#x529E;&#x6CD5;&#x89E3;&#x51B3;&#x7684;&#x3002;</p>
 
       
     </div>
@@ -338,11 +331,9 @@
       
         <div class="post-tags">
           
+            <a href="/tags/ActivityLifecycleCallbacks/" rel="tag">#ActivityLifecycleCallbacks</a>
+          
             <a href="/tags/android/" rel="tag">#android</a>
-          
-            <a href="/tags/应用被强杀/" rel="tag">#应用被强杀</a>
-          
-            <a href="/tags/空指针/" rel="tag">#空指针</a>
           
         </div>
       
@@ -351,12 +342,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/02/26/export-jar-and-proguard/" rel="next" title="Android Studio导出Jar包并混淆">
+                <i class="fa fa-chevron-left"></i> Android Studio导出Jar包并混淆
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/02/26/export-jar-and-proguard/" rel="prev" title="Android Studio导出Jar包并混淆">
-                Android Studio导出Jar包并混淆 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/02/26/how-to-choose-open-source/" rel="prev" title="这么多开源框架，该用哪个好？">
+                这么多开源框架，该用哪个好？ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -372,10 +367,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/02/26/how-to-handle-app-force-killed/"
-     data-title="应用被强杀了怎么办"
+        <div class="ds-share flat" data-thread-key="2016/02/26/check-if-app-is-running-forground/"
+     data-title="判断App运行是否在前台"
      data-content=""
-     data-url="http://notes.stay4it.com/2016/02/26/how-to-handle-app-force-killed/">
+     data-url="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -402,8 +397,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/02/26/how-to-handle-app-force-killed/"
-           data-title="应用被强杀了怎么办" data-url="http://notes.stay4it.com/2016/02/26/how-to-handle-app-force-killed/">
+      <div class="ds-thread" data-thread-key="2016/02/26/check-if-app-is-running-forground/"
+           data-title="判断App运行是否在前台" data-url="http://notes.stay4it.com/2016/02/26/check-if-app-is-running-forground/">
       </div>
     
   </div>
