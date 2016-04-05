@@ -1,0 +1,953 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,BaseListActivity,RecyclerView,封装," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8981;&amp;#x8DDF;&amp;#x5927;&amp;#x5BB6;&amp;#x5B89;&amp;#x5229;&amp;#x4E00;&amp;#x79CD;&amp;#x5C01;&amp;#x88C5;&amp;#x65B9;&amp;#x5F0F;&amp;#xFF0C;&amp;#x4FDD;&amp;#x8BC1;&amp;#x53EA;&amp;#x7528;100&amp;#x884C;&amp;#x4EE3;&amp;#x7801;&amp;#x5C31;&amp;#x80FD;&amp;#x64">
+<meta property="og:type" content="article">
+<meta property="og:title" content="封装那些事-100行代码撸一个RecyclerView">
+<meta property="og:url" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/index.html">
+<meta property="og:site_name" content="Stay's Notes">
+<meta property="og:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8981;&amp;#x8DDF;&amp;#x5927;&amp;#x5BB6;&amp;#x5B89;&amp;#x5229;&amp;#x4E00;&amp;#x79CD;&amp;#x5C01;&amp;#x88C5;&amp;#x65B9;&amp;#x5F0F;&amp;#xFF0C;&amp;#x4FDD;&amp;#x8BC1;&amp;#x53EA;&amp;#x7528;100&amp;#x884C;&amp;#x4EE3;&amp;#x7801;&amp;#x5C31;&amp;#x80FD;&amp;#x64">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler01.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler02.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler03.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler04.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler05.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler06.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler07.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler08.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler09.png">
+<meta property="og:updated_time" content="2016-04-05T02:01:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="封装那些事-100行代码撸一个RecyclerView">
+<meta name="twitter:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8981;&amp;#x8DDF;&amp;#x5927;&amp;#x5BB6;&amp;#x5B89;&amp;#x5229;&amp;#x4E00;&amp;#x79CD;&amp;#x5C01;&amp;#x88C5;&amp;#x65B9;&amp;#x5F0F;&amp;#xFF0C;&amp;#x4FDD;&amp;#x8BC1;&amp;#x53EA;&amp;#x7528;100&amp;#x884C;&amp;#x4EE3;&amp;#x7801;&amp;#x5C31;&amp;#x80FD;&amp;#x64">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 封装那些事-100行代码撸一个RecyclerView | Stay's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a9dd8e8dc041e71337d2adaedbbaea7b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Stay's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                封装那些事-100行代码撸一个RecyclerView
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-04T13:02:18+08:00" content="2016-04-04">
+              2016-04-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/封装那些事/" itemprop="url" rel="index">
+                    <span itemprop="name">封装那些事</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/04/how-to-build-recyclerview-with-baselistactivity/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/" class="leancloud_visitors" data-flag-title="封装那些事-100行代码撸一个RecyclerView">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x4ECA;&#x5929;&#x8981;&#x8DDF;&#x5927;&#x5BB6;&#x5B89;&#x5229;&#x4E00;&#x79CD;&#x5C01;&#x88C5;&#x65B9;&#x5F0F;&#xFF0C;&#x4FDD;&#x8BC1;&#x53EA;&#x7528;<strong>100&#x884C;&#x4EE3;&#x7801;</strong>&#x5C31;&#x80FD;&#x64B8;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x9875;&#x9762;</p>
+<p>&#x6765;&#x4E0A;&#x56FE;&#xFF1A;<br><img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler01.png" alt="recycler01.png" title=""><img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler02.png" alt="recycler02.png" title=""></p>
+<p>&#x76F8;&#x5173;&#x8BF4;&#x660E;&#xFF1A;</p>
+<ol>
+<li>&#x8BE5;&#x5217;&#x8868;&#x9875;&#x53EF;&#x4EE5;&#x662F;Activity&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;Fragment</li>
+<li>&#x8BE5;&#x5217;&#x8868;&#x9875;&#x4F7F;&#x7528;RecyclerView&#xFF0C;&#x6240;&#x4EE5;&#x652F;&#x6301;&#x5217;&#x8868;&#xFF0C;&#x7F51;&#x683C;&#xFF0C;&#x7011;&#x5E03;&#x6D41;</li>
+<li>&#x8BE5;&#x5217;&#x8868;&#x9875;&#x652F;&#x6301;&#x4E0B;&#x62C9;&#x5237;&#x65B0;&#xFF0C;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;&#x66F4;&#x591A;</li>
+<li>&#x8BE5;&#x5217;&#x8868;&#x9700;extends BaseListActivity&#x6216;BaseListFragment</li>
+</ol>
+<p>&#x4E4B;&#x524D;Stay&#x5199;&#x8FC7;&#x4E00;&#x7BC7;<a href="http://notes.stay4it.com/2016/03/10/refactoring-recyclerview/">RecyclerView&#x518D;&#x5C01;&#x88C5;</a>&#xFF0C;&#x672C;&#x7BC7;&#x662F;&#x5BF9;&#x8BE5;&#x7BC7;&#x7684;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x96BE;&#x5EA6;&#x9002;&#x4E2D;&#xFF0C;&#x6CA1;&#x6709;&#x8FC7;&#x591A;&#x7684;&#x7B97;&#x6CD5;&#xFF0C;&#x7EAF;&#x7CB9;&#x662F;&#x5229;&#x7528;Android&#x63D0;&#x4F9B;&#x7684;API&#x4E0E;&#x4E00;&#x4E9B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x76F8;&#x7ED3;&#x5408;&#x505A;&#x7684;&#x5C01;&#x88C5;&#x3002;</p>
+<p>&#x6CA1;&#x4EC0;&#x4E48;&#x597D;&#x89E3;&#x91CA;&#x7684;&#x4E86;&#xFF0C;&#x8001;&#x53F8;&#x673A;&#x8981;&#x5F00;&#x8F66;&#x5566;&#xFF0C;&#x6EF4;&#x6EF4;&#x3002;&#x3002;</p>
+<a id="more"></a>
+<p>&#x9996;&#x5148;&#x6765;&#x770B;&#x770B;&#x6211;&#x4EEC;&#x8FD9;&#x4E2A;&#x5217;&#x8868;SampleListActivity, &#x5B83;&#x662F;&#x7EE7;&#x627F;BaseListActivity</p>
+<pre><code>public class SampleListActivity extends BaseListActivity&lt;String&gt; 
+</code></pre><p>&#x6CE8;&#x610F;&#xFF0C;&#x6B64;&#x5904;&#x6709;&#x6CDB;&#x578B;&#x3002;&#x8FD9;&#x91CC;&#x7684;T&#x5C31;&#x662F;&#x4F60;&#x7528;&#x5728;&#x5217;&#x8868;&#x6570;&#x636E;List<t>&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x8FD9;&#x6837;&#x5199;&#xFF0C;<strong>&#x5148;&#x57CB;&#x4E2A;&#x5751;&#xFF0C;&#x4E00;&#x4F1A;&#x518D;&#x586B;</strong>&#x3002;</t></p>
+<p>&#x5728;SampleListActivity&#x4E2D;</p>
+<pre><code>    @Override
+protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_sample_list_item, parent, false);
+    return new SampleViewHolder(view);
+}
+
+@Override
+protected ILayoutManager getLayoutManager() {
+    return new MyGridLayoutManager(getApplicationContext(), 3);
+}
+
+class SampleViewHolder extends BaseViewHolder {
+&#xFF5D;
+</code></pre><p>&#x5B50;&#x7C7B;SampleListActivity&#x53EA;&#x9700;&#x8981;&#x505A;&#x4EE5;&#x4E0A;&#x5B9E;&#x73B0;</p>
+<ol>
+<li>&#x6307;&#x5B9A;&#x5217;&#x8868;&#x7C7B;&#x578B;&#xFF1A;linear, grid, stagger</li>
+<li>&#x6307;&#x5B9A;item&#x5BF9;&#x5E94;&#x7684;ViewHolder</li>
+<li>ViewHolder&#x7684;&#x6570;&#x636E;&#x7ED1;&#x5B9A;</li>
+</ol>
+<p>ok&#xFF0C;&#x53EA;&#x8981;&#x5B8C;&#x6210;&#x8FD9;&#x4E9B;&#x4E8B;&#x60C5;&#xFF0C;&#x4E00;&#x4E2A;&#x59B9;&#x5B50;&#x5217;&#x8868;&#x5C31;&#x51FA;&#x6765;&#x4E86;&#x3002;&#x5F00;&#x64B8;&#x5427;&#x3002;</p>
+<p>&#x597D;&#x5947;&#x7684;&#x4F60;&#x4E0D;&#x4F1A;&#x5C31;&#x6B64;&#x6EE1;&#x8DB3;&#x3002;Adapter&#x54EA;&#x53BB;&#x4E86;&#xFF1F;RecyclerView&#x5462;&#xFF1F;&#x6211;&#x600E;&#x4E48;&#x6CA1;&#x770B;&#x5230;&#x5B83;&#x4EEC;&#x3002;&#x55EF;&#x54FC;&#xFF5E;</p>
+<p>BaseListActivity&#x6709;&#x4E2A;&#x513F;&#x5B50;&#x53EB;SampleListActivity, &#x513F;&#x5B50;&#x975E;&#x5E38;&#x52AA;&#x529B;&#xFF0C;&#x51ED;&#x501F;&#x81EA;&#x5DF1;&#x7684;&#x5929;&#x8D4B;&#x627E;&#x5230;&#x4E86;&#x7EC4;&#x7EC7;&#xFF0C;&#x7EC8;&#x4E8E;&#xFF0C;3&#x79D2;&#x540E;&#xFF0C;&#x513F;&#x5B50;&#x62FF;&#x7740;&#x8BF7;&#x6C42;&#x6765;&#x7684;&#x6570;&#x636E;&#x52A0;&#x4E0A;&#x8001;&#x7239;&#x7ED9;&#x7684;&#x6846;&#x67B6;&#x64B8;&#x4E0A;&#x4E86;&#x59B9;&#x7EB8;&#x3002;&#x6CE8;&#xFF1A;&#x59B9;&#x7EB8;&#x56FE;&#x6765;&#x81EA;<a href="http://gank.io/api" target="_blank" rel="external">gank.io</a></p>
+<p>&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x60C5;&#x51B5;&#xFF0C;&#x9664;&#x4E86;&#x8BF7;&#x6C42;&#x6570;&#x636E;&#x4EE5;&#x53CA;&#x5236;&#x5B9A;&#x6BCF;&#x4E2A;Item&#x7684;UI&#x6837;&#x5F0F;&#xFF0C;&#x5176;&#x4ED6;&#x7684;&#x90FD;&#x7531;&#x7236;&#x7C7B;&#x5B8C;&#x6210;&#x3002;</p>
+<p>&#x662F;&#x4E0D;&#x662F;&#x597D;&#x5947;BaseListActivity&#x4E2D;&#x5C01;&#x88C5;&#x4E86;&#x4E9B;&#x4EC0;&#x4E48;&#xFF1F;&#x6211;&#x4EEC;&#x8FDB;&#x53BB;&#x770B;&#x770B;&#x5427;&#x3002;</p>
+<img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler03.png" alt="recycler03.png" title="">
+<p>&#x5176;&#x5B9E;SampleListActivity&#x8FD8;&#x6709;&#x4E2A;&#x7237;&#x7237;&#xFF0C;&#x4E0D;&#x8FC7;&#x8FD9;&#x4E0D;&#x91CD;&#x8981;&#x3002;&#x6211;&#x4EEC;&#x770B;&#xFF0C;&#x5728;&#x7236;&#x7C7B;&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;ArrayList<t>, Adapter, Recycler. &#x5E76;&#x4E14;&#x5BF9;Recycler, Adapter&#x505A;&#x4E86;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x8FD9;&#x6837;&#x5199;&#xFF1F;&#x8001;&#x53F8;&#x673A;&#x5E26;&#x4F60;&#x770B;&#x4E00;&#x4E0B;&#x7CFB;&#x7EDF;&#x6E90;&#x7801;&#x5C31;&#x77E5;&#x9053;&#x4E86;&#x3002;</t></p>
+<pre><code>android.app.ListActivity
+</code></pre><img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler04.png" alt="recycler04.png" title="">
+<p>&#x8FD9;&#x91CC;&#x5B9E;&#x9645;&#x4E0A;&#x53C2;&#x8003;&#x4E86;&#x7CFB;&#x7EDF;ListActivity&#x7684;&#x521D;&#x8877;&#xFF0C;&#x5C06;ListView(&#x8FD9;&#x91CC;&#x662F;RecyclerView)&#x5C01;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x5E76;&#x4E14;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;layout&#xFF0C;&#x5F53;&#x5217;&#x8868;&#x9875;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x65F6;&#xFF0C;&#x5B50;&#x7C7B;&#x53EA;&#x9700;&#x8981;&#x7ED1;&#x5B9A;data&#x5C31;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;UI&#x663E;&#x793A;&#x3002;</p>
+<p>Stay&#x8FD9;&#x91CC;&#x505A;&#x7684;BaseListActivity&#x8981;&#x66F4;&#x5185;&#x805A;&#x4E00;&#x4E9B;&#x3002;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5C06;List<t>&#x5B9A;&#x4E49;&#x5728;&#x7236;&#x7C7B;&#xFF0C;&#x6240;&#x4EE5;&#x5728;Adapter&#x7684;getItemCount&#x4E2D;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x505A;&#x8FD4;&#x56DE;&#x3002;&#x4E0D;&#x9700;&#x8981;&#x5B50;&#x7C7B;&#x660E;&#x786E;&#x6307;&#x5B9A;size&#x3002;&#x81F3;&#x4E8E;&#x5176;&#x5B83;&#x7236;&#x7C7B;&#x5B9A;&#x4E49;&#x4E0D;&#x4E86;&#x7684;&#xFF0C;&#x6BD4;&#x5982;onCreateViewHolder, onBindViewHolder&#xFF0C;&#x53EF;&#x4EE5;&#x8BA9;&#x5B50;&#x7C7B;&#x5B9E;&#x73B0;&#x3002;</t></p>
+<p>&#x8FD8;&#x6709;&#x7236;&#x7C7B;&#x9884;&#x5B9A;&#x4E49;&#x4E86;&#x5217;&#x8868;&#x6837;&#x5F0F;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;LinearLayoutManager&#xFF0C;&#x5982;&#x679C;&#x5B50;&#x7C7B;&#x4E0D;&#x60F3;&#x8981;&#xFF0C;&#x76F4;&#x63A5;&#x91CD;&#x5199;&#x65B9;&#x6CD5;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<p>&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x7236;&#x7C7B;&#x4EE3;&#x7801;&#x4E5F;&#x4E0D;&#x591A;&#xFF0C;90&#x884C;&#x3002;&#x7236;&#x7C7B;&#x6709;&#x7236;&#x7C7B;&#x7684;&#x60F3;&#x6CD5;&#xFF0C;&#x4E3A;&#x4E86;&#x513F;&#x5B50;&#x80FD;&#x81EA;&#x5DF1;&#x72EC;&#x7ACB;&#x6210;&#x957F;&#xFF0C;&#x53EA;&#x80FD;&#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x6700;&#x57FA;&#x7840;&#x7684;&#x6846;&#x67B6;&#xFF0C;&#x81F3;&#x4E8E;&#x513F;&#x5B50;&#x4EE5;&#x540E;&#x80FD;&#x5E72;&#x561B;&#xFF0C;&#x90A3;&#x662F;&#x513F;&#x5B50;&#x7684;&#x4E8B;&#x60C5;&#x3002;</p>
+<p>&#x867D;&#x7136;&#x7236;&#x7C7B;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x4E0D;&#x591A;&#xFF0C;&#x4F46;&#x662F;&#x80FD;&#x7ED9;&#x7684;&#x90FD;&#x7ED9;&#x4E86;&#xFF0C;&#x5B83;&#x505A;&#x7684;&#x6700;&#x6B63;&#x786E;&#x7684;&#x4E8B;&#xFF0C;&#x5C31;&#x662F;&#x65E9;&#x5E74;&#x8FD8;&#x505A;&#x4E86;&#x4E00;&#x5957;&#x5C01;&#x88C5;&#xFF0C;&#x5B83;&#x53EB;PullRecycler&#x3002;&#x8FD9;&#x4E2A;PullRecycler&#x8FD8;&#x633A;&#x7ED9;&#x529B;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0B;&#x62C9;&#x5237;&#x65B0;&#xFF0C;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;&#x66F4;&#x591A;&#xFF0C;&#x652F;&#x6301;&#x4E09;&#x79CD;LayoutManager&#x3002;</p>
+<p>&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;PullRecycler&#x6CA1;&#x6709;&#x591A;&#x96BE;&#x505A;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E00;&#x4E2A;SwipeRefreshLayout+RecyclerView&#x3002;&#x5F53;&#x7136;&#x96BE;&#x70B9;&#x8FD8;&#x662F;&#x6709;&#x7684;&#x3002;&#x4E0B;&#x62C9;&#x5237;&#x65B0;&#x662F;SwipeRefreshLayout&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;&#x66F4;&#x591A;&#x6709;&#x4E09;&#x4E2A;&#x5751;&#x3002;</p>
+<ol>
+<li>&#x5224;&#x65AD;&#x662F;&#x5426;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x66F4;&#x591A;&#xFF0C;&#x662F;&#x901A;&#x8FC7;onScrollListener&#x6765;&#x505A;&#x7684;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x62FF;&#x5C4F;&#x5E55;&#x4E2D;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x663E;&#x793A;&#x7684;item posistion&#x53BB;&#x8DDF;totalCount&#x6BD4;&#x5BF9;&#x3002;&#x4F46;&#x662F;&#x5728;StaggerLayoutManager&#x4E2D;&#xFF0C;&#x62FF;&#x5230;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x3002;&#x5176;&#x5B83;LayoutManager&#x62FF;&#x5230;&#x7684;&#x662F;int&#x3002;&#x8FD9;&#x5C31;&#x5751;&#x4E86;&#xFF0C;&#x4E0D;&#x7EDF;&#x4E00;&#xFF0C;&#x5F88;&#x591A;github&#x4E0A;&#x7684;RecyclerView&#x5C01;&#x88C5;&#x90FD;&#x662F;&#x901A;&#x8FC7;instanceOf&#x6765;&#x5F3A;&#x8F6C;&#x7684;&#xFF0C;&#x6211;&#x4E0D;&#x592A;&#x559C;&#x6B22;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x5C31;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;ILayoutManager&#xFF0C;&#x8BA9;&#x6BCF;&#x4E2A;LayoutManager&#x53BB;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;findLastVisiblePosition() <img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler05.png" alt="recycler05.png" title=""></li>
+<li>&#x52A0;&#x8F7D;&#x66F4;&#x591A;footer&#x9700;&#x8981;&#x81EA;&#x6210;&#x4E00;&#x884C;&#xFF0C;&#x4F46;&#x5728;grid&#x548C;stagger&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#x4E86;&#x3002;GridLayoutManager&#x8FD8;&#x7B80;&#x5355;&#x4E00;&#x70B9;&#xFF0C;&#x76F4;&#x63A5;&#x770B;&#x6E90;&#x7801;&#x7684;&#x7C7B;&#x6CE8;&#x91CA;&#x4F60;&#x5C31;&#x80FD;&#x77E5;&#x9053;&#x5982;&#x4F55;&#x505A;&#x3002;SpanSizeLookup&#xFF0C;&#x5982;&#x679C;&#x4E3A;footer&#xFF0C;&#x90A3;&#x5C31;&#x8FD4;&#x56DE;1&#xFF0C;&#x4EE3;&#x8868;&#x5360;&#x6EE1;&#x6574;&#x4E2A;&#x5BBD;&#x5EA6;&#x3002;<img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler06.png" alt="recycler06.png" title=""> StaggerGridLayoutManager&#x66F4;&#x9EBB;&#x70E6;&#xFF0C;&#x4F60;&#x5F97;&#x6539;itemView&#x7684;LayoutParams&#xFF0C;&#x5C06;setFullSpan&#x8BBE;&#x4E3A;true&#xFF0C;&#x624D;&#x80FD;&#x81EA;&#x6210;&#x4E00;&#x884C;&#x3002;<img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler07.png" alt="recycler07.png" title=""> <img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler08.png" alt="recycler08.png" title="">  </li>
+<li>&#x4EE5;&#x524D;ListView&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;footer&#xFF0C;&#x4F46;&#x662F;RecyclerView&#x6CA1;&#x6709;&#xFF0C;&#x4F60;&#x5F97;&#x81EA;&#x5DF1;&#x5728;adapter&#x4E2D;&#x505A;&#x5224;&#x65AD;&#xFF0C;&#x5982;&#x679C;&#x6709;footer&#xFF0C;&#x90A3;itemCount&#x8981;&#xFF0B;1&#x3002;&#x6240;&#x4EE5;&#x6211;&#x53C8;&#x5C06;Adapter&#x62BD;&#x51FA;&#x6765;&#xFF0C;&#x505A;&#x6210;BaseListAdapter&#xFF0C;&#x662F;&#x5426;&#x663E;&#x793A;footer&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x662F;stagger&#x6A21;&#x5F0F;&#x4E0B;footer&#xFF0C;&#x7ED9;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;footerViewHolder&#xFF0C;&#x5982;&#x679C;&#x5B50;&#x7C7B;&#x4E0D;&#x6EE1;&#x610F;&#x8FD8;&#x80FD;&#x518D;&#x91CD;&#x5199;&#x3002;<img src="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/recycler09.png" alt="recycler09.png" title="">  </li>
+</ol>
+<p>&#x55EF;&#xFF0C;&#x5F00;&#x8F66;&#x597D;&#x7D2F;&#x3002;&#x8001;&#x53F8;&#x673A;&#x5F97;&#x6B47;&#x4F1A;&#x3002;</p>
+<p>&#x9644;&#x4E0A;&#x6E90;&#x7801;<a href="https://github.com/Stay/PullRecycler" target="_blank" rel="external">github</a>&#xFF0C;&#x81EA;&#x5DF1;&#x62FF;&#x53BB;&#x5F00;&#x5427;&#x3002;&#x76F4;&#x63A5;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#xFF0C;&#x53E6;&#x5916;&#x8FD8;&#x5C01;&#x88C5;&#x4E86;BaseSectionListActivity, &#x5E26;section header&#x7684;sample&#x3002;</p>
+<blockquote>
+<p>&#x58F0;&#x660E;:&#x672C;&#x6587;&#x4E3A;Stay&#x539F;&#x521B;,&#x672A;&#x7ECF;&#x5141;&#x8BB8;&#x8BF7;&#x52FF;&#x8F6C;&#x8F7D;  <a href="http://www.stay4it.com" target="_blank" rel="external">&#x6709;&#x5FC3;&#x8BFE;&#x5802;(stay4it.com)</a> &#x4F20;&#x9012;&#x7ED9;&#x4F60;&#x7684;&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x6280;&#x672F;&#xFF5E;</p>
+</blockquote>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/BaseListActivity/" rel="tag">#BaseListActivity</a>
+          
+            <a href="/tags/RecyclerView/" rel="tag">#RecyclerView</a>
+          
+            <a href="/tags/封装/" rel="tag">#封装</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/24/how-to-build-cpp-with-ndk/" rel="next" title="Android NDK编译C/C++小结">
+                <i class="fa fa-chevron-left"></i> Android NDK编译C/C++小结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/04/how-to-build-recyclerview-with-baselistactivity/"
+     data-title="封装那些事-100行代码撸一个RecyclerView"
+     data-content=""
+     data-url="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/04/how-to-build-recyclerview-with-baselistactivity/"
+           data-title="封装那些事-100行代码撸一个RecyclerView" data-url="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my_avatar.jpg"
+               alt="Stay" />
+          <p class="site-author-name" itemprop="name">Stay</p>
+          <p class="site-description motion-element" itemprop="description">select * from life</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Stay" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.stay4it.com" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 有心课堂
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stay</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"stay4it-note"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("zG8P4e1cBLLy6DhoVe68NJqR-gzGzoHsz", "8DKIsCr0wID4auEWBv3xNV9x");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
