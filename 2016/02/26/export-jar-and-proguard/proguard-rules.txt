@@ -1,9 +1,7 @@
 #-libraryjars libs\gson-2.2.2.jar
 
-# 记录生成的日志数据，在proguard目录下
-#-printseeds proguard\seeds.txt
-#-printusage proguard\unused.txt
-#-printmapping proguard\mapping.txt
+# 记录生成的日志数据，在mapping目录下
+-printmapping build/outputs/mapping/release/mapping.txt
 
  -ignorewarnings
 

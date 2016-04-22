@@ -57,12 +57,14 @@
 
 
 
-<meta name="description" content="&amp;#x4E07;&amp;#x4E07;&amp;#x6CA1;&amp;#x60F3;&amp;#x5230;Retrofit&amp;#x4F1A;&amp;#x8FD9;&amp;#x4E48;&amp;#x706B;&amp;#xFF0C;&amp;#x5728;&amp;#x6CA1;&amp;#x770B;&amp;#x6E90;&amp;#x7801;&amp;#x4E4B;&amp;#x524D;&amp;#xFF0C;&amp;#x6211;&amp;#x7B80;&amp;#x5355;&amp;#x7684;&amp;#x8BA4;&amp;#x4E3A;">
+<meta name="description" content="&amp;#x6CA1;&amp;#x8010;&amp;#x5FC3;&amp;#x81EA;&amp;#x5DF1;&amp;#x5206;&amp;#x6790;&amp;#x6E90;&amp;#x7801;&amp;#x7684;&amp;#x540C;&amp;#x5B66;&amp;#xFF0C;&amp;#x8FD8;&amp;#x53EF;&amp;#x4EE5;&amp;#x53C2;&amp;#x8003;Stay&amp;#x5F55;&amp;#x5236;&amp;#x7684;&amp;#x89C6;&amp;#x9891;&amp;#x7248;
+Ret">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit分析-漂亮的解耦套路">
 <meta property="og:url" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/index.html">
 <meta property="og:site_name" content="Stay's Notes">
-<meta property="og:description" content="&amp;#x4E07;&amp;#x4E07;&amp;#x6CA1;&amp;#x60F3;&amp;#x5230;Retrofit&amp;#x4F1A;&amp;#x8FD9;&amp;#x4E48;&amp;#x706B;&amp;#xFF0C;&amp;#x5728;&amp;#x6CA1;&amp;#x770B;&amp;#x6E90;&amp;#x7801;&amp;#x4E4B;&amp;#x524D;&amp;#xFF0C;&amp;#x6211;&amp;#x7B80;&amp;#x5355;&amp;#x7684;&amp;#x8BA4;&amp;#x4E3A;">
+<meta property="og:description" content="&amp;#x6CA1;&amp;#x8010;&amp;#x5FC3;&amp;#x81EA;&amp;#x5DF1;&amp;#x5206;&amp;#x6790;&amp;#x6E90;&amp;#x7801;&amp;#x7684;&amp;#x540C;&amp;#x5B66;&amp;#xFF0C;&amp;#x8FD8;&amp;#x53EF;&amp;#x4EE5;&amp;#x53C2;&amp;#x8003;Stay&amp;#x5F55;&amp;#x5236;&amp;#x7684;&amp;#x89C6;&amp;#x9891;&amp;#x7248;
+Ret">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit00.png">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit01.png">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit03.png">
@@ -73,10 +75,11 @@
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit06.png">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit01.png">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit07.png">
-<meta property="og:updated_time" content="2016-04-07T10:09:36.000Z">
+<meta property="og:updated_time" content="2016-04-19T13:47:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit分析-漂亮的解耦套路">
-<meta name="twitter:description" content="&amp;#x4E07;&amp;#x4E07;&amp;#x6CA1;&amp;#x60F3;&amp;#x5230;Retrofit&amp;#x4F1A;&amp;#x8FD9;&amp;#x4E48;&amp;#x706B;&amp;#xFF0C;&amp;#x5728;&amp;#x6CA1;&amp;#x770B;&amp;#x6E90;&amp;#x7801;&amp;#x4E4B;&amp;#x524D;&amp;#xFF0C;&amp;#x6211;&amp;#x7B80;&amp;#x5355;&amp;#x7684;&amp;#x8BA4;&amp;#x4E3A;">
+<meta name="twitter:description" content="&amp;#x6CA1;&amp;#x8010;&amp;#x5FC3;&amp;#x81EA;&amp;#x5DF1;&amp;#x5206;&amp;#x6790;&amp;#x6E90;&amp;#x7801;&amp;#x7684;&amp;#x540C;&amp;#x5B66;&amp;#xFF0C;&amp;#x8FD8;&amp;#x53EF;&amp;#x4EE5;&amp;#x53C2;&amp;#x8003;Stay&amp;#x5F55;&amp;#x5236;&amp;#x7684;&amp;#x89C6;&amp;#x9891;&amp;#x7248;
+Ret">
 
 
 
@@ -317,7 +320,11 @@
       
 
       
-        <p>&#x4E07;&#x4E07;&#x6CA1;&#x60F3;&#x5230;Retrofit&#x4F1A;&#x8FD9;&#x4E48;&#x706B;&#xFF0C;&#x5728;&#x6CA1;&#x770B;&#x6E90;&#x7801;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x7B80;&#x5355;&#x7684;&#x8BA4;&#x4E3A;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x8DDF;OkHttp&#x540C;&#x51FA;&#x4E00;&#x6E90;(Square)&#xFF0C;&#x6240;&#x4EE5;&#x624D;&#x4F1A;&#x7092;&#x7684;&#x90A3;&#x4E48;&#x70ED;&#x3002;&#x53C8;&#x6216;&#x8005;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x80FD;&#x652F;&#x6301;RxJava&#xFF0C;&#x6240;&#x4EE5;&#x706B;&#x4E0A;&#x6D47;&#x6CB9;&#xFF0C;&#x4E00;&#x53D1;&#x4E0D;&#x53EF;&#x6536;&#x62FE;&#x3002;</p>
+        <blockquote>
+<p>&#x6CA1;&#x8010;&#x5FC3;&#x81EA;&#x5DF1;&#x5206;&#x6790;&#x6E90;&#x7801;&#x7684;&#x540C;&#x5B66;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x53C2;&#x8003;Stay&#x5F55;&#x5236;&#x7684;&#x89C6;&#x9891;&#x7248;</p>
+<p><a href="http://www.stay4it.com/course/22/info" target="_blank" rel="external">Retrofit&#x5206;&#x6790;-&#x6F02;&#x4EAE;&#x7684;&#x89E3;&#x8026;&#x5957;&#x8DEF;(&#x89C6;&#x9891;&#x7248;)</a></p>
+</blockquote>
+<p>&#x4E07;&#x4E07;&#x6CA1;&#x60F3;&#x5230;Retrofit&#x4F1A;&#x8FD9;&#x4E48;&#x706B;&#xFF0C;&#x5728;&#x6CA1;&#x770B;&#x6E90;&#x7801;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x7B80;&#x5355;&#x7684;&#x8BA4;&#x4E3A;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x8DDF;OkHttp&#x540C;&#x51FA;&#x4E00;&#x6E90;(Square)&#xFF0C;&#x6240;&#x4EE5;&#x624D;&#x4F1A;&#x7092;&#x7684;&#x90A3;&#x4E48;&#x70ED;&#x3002;&#x53C8;&#x6216;&#x8005;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x80FD;&#x652F;&#x6301;RxJava&#xFF0C;&#x6240;&#x4EE5;&#x706B;&#x4E0A;&#x6D47;&#x6CB9;&#xFF0C;&#x4E00;&#x53D1;&#x4E0D;&#x53EF;&#x6536;&#x62FE;&#x3002;</p>
 <p>&#x540E;&#x6765;&#x770B;&#x8FC7;Retrofit&#x6E90;&#x7801;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x624D;&#x7406;&#x89E3;&#x4E3A;&#x4EC0;&#x4E48;&#x5B83;&#x500D;&#x53D7;&#x5173;&#x6CE8;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x96C6;&#x8BF8;&#x4F18;&#x70B9;&#x4E8E;&#x4E00;&#x8EAB;&#xFF0C;&#x5E76;&#x4E14;&#x7092;&#x9E21;&#x89E3;&#x8026;&#x3002;&#x4F60;&#x80FD;&#x9884;&#x89C1;&#x7684;&#x7279;&#x6B8A;&#x9700;&#x6C42;&#xFF0C;&#x90FD;&#x80FD;&#x975E;&#x5E38;&#x5BB9;&#x6613;&#x7684;&#x6269;&#x5C55;&#x3002;</p>
 <h3 id="&#x6CA1;&#x6709;HTTP&#x6846;&#x67B6;&#x7684;&#x65E5;&#x5B50;"><a href="#&#x6CA1;&#x6709;HTTP&#x6846;&#x67B6;&#x7684;&#x65E5;&#x5B50;" class="headerlink" title="&#x6CA1;&#x6709;HTTP&#x6846;&#x67B6;&#x7684;&#x65E5;&#x5B50;"></a>&#x6CA1;&#x6709;HTTP&#x6846;&#x67B6;&#x7684;&#x65E5;&#x5B50;</h3><p>&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x6CA1;&#x6709;HTTP&#x6846;&#x67B6;&#x4EE5;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x662F;&#x5982;&#x4F55;&#x505A;&#x8BF7;&#x6C42;&#x7684;&#x3002;</p>
 <a id="more"></a>
@@ -363,6 +370,7 @@
 <p><a href="http://www.jianshu.com/p/77d418e7b5d6" target="_blank" rel="external">OkHttp, Retrofit, Volley&#x5E94;&#x8BE5;&#x9009;&#x62E9;&#x54EA;&#x4E00;&#x4E2A;&#xFF1F;</a></p>
 <p><a href="http://www.jianshu.com/p/96346ffb0c9f" target="_blank" rel="external">Retrofit&#x5206;&#x6790;-&#x8C1C;&#x4E4B;&#x69FD;&#x70B9;</a></p>
 <p><a href="http://www.jianshu.com/p/f3227c7008d4" target="_blank" rel="external">&#x8FD9;&#x4E48;&#x591A;&#x5F00;&#x6E90;&#x6846;&#x67B6;&#xFF0C;&#x8BE5;&#x7528;&#x54EA;&#x4E2A;&#x597D;&#xFF1F;</a></p>
+<p><a href="http://www.stay4it.com/course/22/info" target="_blank" rel="external">Retrofit&#x5206;&#x6790;-&#x6F02;&#x4EAE;&#x7684;&#x89E3;&#x8026;&#x5957;&#x8DEF;(&#x89C6;&#x9891;&#x7248;)</a></p>
 <blockquote>
 <p>&#x58F0;&#x660E;:&#x672C;&#x6587;&#x4E3A;Stay&#x539F;&#x521B;,&#x672A;&#x7ECF;&#x5141;&#x8BB8;&#x8BF7;&#x52FF;&#x8F6C;&#x8F7D;  <a href="http://www.stay4it.com" target="_blank" rel="external">&#x6709;&#x5FC3;&#x8BFE;&#x5802;(stay4it.com)</a> &#x4F20;&#x9012;&#x7ED9;&#x4F60;&#x7684;&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x6280;&#x672F;&#xFF5E;</p>
 </blockquote>
