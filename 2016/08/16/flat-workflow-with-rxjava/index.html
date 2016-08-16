@@ -1,0 +1,974 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="rxjava," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4E0A;&amp;#x4E2A;&amp;#x6708;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&amp;#x60C5;&amp;#x6BD4;&amp;#x8F83;&amp;#x591A;&amp;#xFF1A;&amp;#x6539;&amp;#x6539;iOS bug&amp;#xFF0C;&amp;#x5B66;python&amp;#xFF0C;&amp;#x628A;&amp;#x9879;&amp;#x76EE;&amp;#x91CD;&amp;#x6784;&amp;#x6210;MVP&amp;#xFF0C;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjava实践-把混乱的WORKFLOW撸成串吧">
+<meta property="og:url" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/index.html">
+<meta property="og:site_name" content="Stay's Notes">
+<meta property="og:description" content="&amp;#x4E0A;&amp;#x4E2A;&amp;#x6708;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&amp;#x60C5;&amp;#x6BD4;&amp;#x8F83;&amp;#x591A;&amp;#xFF1A;&amp;#x6539;&amp;#x6539;iOS bug&amp;#xFF0C;&amp;#x5B66;python&amp;#xFF0C;&amp;#x628A;&amp;#x9879;&amp;#x76EE;&amp;#x91CD;&amp;#x6784;&amp;#x6210;MVP&amp;#xFF0C;">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx01.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx02.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx03.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx04.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx05.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx06.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx07.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx10.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx08.png">
+<meta property="og:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx09.png">
+<meta property="og:updated_time" content="2016-08-16T08:50:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rxjava实践-把混乱的WORKFLOW撸成串吧">
+<meta name="twitter:description" content="&amp;#x4E0A;&amp;#x4E2A;&amp;#x6708;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&amp;#x60C5;&amp;#x6BD4;&amp;#x8F83;&amp;#x591A;&amp;#xFF1A;&amp;#x6539;&amp;#x6539;iOS bug&amp;#xFF0C;&amp;#x5B66;python&amp;#xFF0C;&amp;#x628A;&amp;#x9879;&amp;#x76EE;&amp;#x91CD;&amp;#x6784;&amp;#x6210;MVP&amp;#xFF0C;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Rxjava实践-把混乱的WORKFLOW撸成串吧 | Stay's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a9dd8e8dc041e71337d2adaedbbaea7b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Stay's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Rxjava实践-把混乱的WORKFLOW撸成串吧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T16:38:51+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/高效开发/" itemprop="url" rel="index">
+                    <span itemprop="name">高效开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/flat-workflow-with-rxjava/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/flat-workflow-with-rxjava/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/16/flat-workflow-with-rxjava/" class="leancloud_visitors" data-flag-title="Rxjava实践-把混乱的WORKFLOW撸成串吧">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x4E0A;&#x4E2A;&#x6708;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x6BD4;&#x8F83;&#x591A;&#xFF1A;&#x6539;&#x6539;iOS bug&#xFF0C;&#x5B66;python&#xFF0C;&#x628A;&#x9879;&#x76EE;&#x91CD;&#x6784;&#x6210;MVP&#xFF0C;&#x6DF1;&#x5165;&#x4F7F;&#x7528;Rxjava&#x3002;</p>
+<p>&#x8FD9;&#x6B21;&#x6765;&#x8BF4;&#x8BF4;Rxjava&#xFF0C;&#x901A;&#x8FC7;&#x8FD8;&#x539F;&#x4E00;&#x4E2A;&#x771F;&#x5B9E;&#x7684;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#xFF0C;&#x6765;&#x611F;&#x53D7;&#x4E0B;rxjava&#x7684;&#x4FBF;&#x5229;&#x4E4B;&#x5904;&#x3002;</p>
+<h3 id="&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;"><a href="#&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;" class="headerlink" title="&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;"></a>&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;</h3><p>&#x5148;&#x6765;&#x770B;&#x4E0B;&#x4E00;&#x6BB5;&#x6700;&#x666E;&#x901A;&#x7684;&#x4EE3;&#x7801;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx01.png" alt="rx01.png" title="">
+<p>&#x5728;&#x6CA1;&#x6709;&#x7279;&#x6B8A;&#x9700;&#x6C42;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4EE3;&#x7801;&#x5C31;&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#xFF0C;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#xFF0C;&#x5C06;&#x5B83;&#x4EEC;&#x4E00;&#x4E2A;&#x4E2A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x53BB;&#x3002;</p>
+<p>&#x770B;&#x8D77;&#x6765;&#x597D;&#x50CF;&#x662F;&#x6CA1;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF0C;&#x4E00;&#x4E2A;for&#x5FAA;&#x73AF;&#x641E;&#x5B9A;&#x3002;&#x4E00;&#x4E2A;task&#x5931;&#x8D25;&#x4E86;&#x4E0D;&#x5F71;&#x54CD;&#x53E6;&#x4E00;&#x4E2A;task&#x3002;&#x6BCF;&#x4E2A;task run&#x5728;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x5B50;&#x7EBF;&#x7A0B;&#x3002;</p>
+<p>&#x4E4B;&#x524D;rxjava&#x4F7F;&#x7528;&#x573A;&#x666F;&#x53EA;&#x5C40;&#x9650;&#x4E8E;&#x548C;Retrofit&#x4E00;&#x8D77;&#x7528;&#x3002;&#x6CA1;&#x8FC7;&#x591A;&#x7684;&#x4F7F;&#x7528;&#x64CD;&#x4F5C;&#x7B26;&#x3002;&#x56E0;&#x6B64;&#x5728;uploadFile(path)&#x65B9;&#x6CD5;&#x4E2D;&#x5C31;&#x662F;&#x6700;&#x7B80;&#x5355;&#x7684;Retrofit&#xFF0B;Rxjava&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x3002;rxjava&#x5C31;&#x5207;&#x6362;&#x4E86;&#x4E0B;&#x7EBF;&#x7A0B;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x5199;&#x60EF;java&#x7684;&#x4EBA;&#xFF0C;&#x8FD9;&#x4E48;&#x5199;&#x662F;&#x6CA1;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#x7684;&#x3002;&#x4F46;&#x5982;&#x679C;&#x6DF1;&#x5165;&#x4F7F;&#x7528;&#x8FC7;rxjava&#x4E4B;&#x540E;&#xFF0C;&#x8FD9;&#x4E48;&#x5199;&#x5C31;&#x975E;&#x5E38;&#x522B;&#x626D;&#x4E86;&#x3002;&#x770B;&#x5230;for loop&#x4E86;&#xFF0C;&#x4F60;&#x4E0D;&#x60F3;&#x5C06;&#x5B83;&#x6539;&#x6210;Observable.from()&#x561B;&#xFF1F;</p>
+<a id="more"></a>
+<h3 id="&#x628A;&#x80FD;&#x770B;&#x89C1;&#x7684;&#x90FD;&#x6539;&#x6210;stream&#x5427;"><a href="#&#x628A;&#x80FD;&#x770B;&#x89C1;&#x7684;&#x90FD;&#x6539;&#x6210;stream&#x5427;" class="headerlink" title="&#x628A;&#x80FD;&#x770B;&#x89C1;&#x7684;&#x90FD;&#x6539;&#x6210;stream&#x5427;"></a>&#x628A;&#x80FD;&#x770B;&#x89C1;&#x7684;&#x90FD;&#x6539;&#x6210;stream&#x5427;</h3><p>getFileList()&#x65B9;&#x6CD5;&#x662F;&#x83B7;&#x53D6;sd&#x5361;&#x4E2D;data&#x5305;&#x4E0B;&#x6240;&#x6709;&#x4EE5;loc&#x4E3A;&#x540E;&#x7F00;&#x7684;files&#x3002;</p>
+<p>workflow&#x5206;&#x4E09;&#x6B65;&#xFF1A;</p>
+<ol>
+<li>locate to data dir</li>
+<li>list files under data dir</li>
+<li>filter files with .loc suffix</li>
+</ol>
+<p>&#x6362;&#x6210;rxjava&#x975E;&#x5E38;&#x5BB9;&#x6613;</p>
+<ol>
+<li>&#x5148;&#x53D1;&#x5C04;&#x4E00;&#x4E2A;data&#x76EE;&#x5F55;&#x8DEF;&#x5F84; </li>
+<li>&#x9700;&#x6C42;&#x662F;&#x591A;&#x6B21;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#xFF0C;&#x5F97;&#x7528;flatMap&#x5C06;data&#x6620;&#x5C04;&#x6210;&#x4E00;&#x4E2A;Observable<file[]><br>   2.1 &#x5F53;&#x7136;&#x4F60;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x76F4;&#x63A5;listFile(filter)&#xFF0C;&#x4F46;&#x8FD9;&#x6837;&#x56DE;&#x8C03;&#x53C8;&#x5957;&#x56DE;&#x8C03;&#xFF0C;&#x4E0D;&#x662F;&#x5F88;&#x597D;&#x770B;&#x3002;<br>   2.2 &#x7528;filter&#x64CD;&#x4F5C;&#x7B26;&#x5C06;&#x53D1;&#x5C04;&#x6765;&#x7684;File[]&#x8FC7;&#x6EE4;</file[]></li>
+</ol>
+<p>&#x6BD4;&#x5982;&#x50CF;2.1&#x8FD9;&#x6837;&#x5199;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx02.png" alt="rx02.png" title="">
+<p>&#x6216;&#x8005;&#x50CF;2.2&#x8FD9;&#x6837;&#x5199;<br><img src="/2016/08/16/flat-workflow-with-rxjava/rx03.png" alt="rx03.png" title=""></p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x5728;flatMap&#x4E2D;&#x53C8;&#x7528;from()&#x64CD;&#x4F5C;&#x7B26;&#x5C06;File[]&#x53D8;&#x6362;&#x6210;&#x4E00;&#x4E2A;&#x4E2A;Observable<file>&#x53D1;&#x5C04;&#x3002;</file></p>
+<p>&#x5047;&#x5982;&#x4F60;&#x7684;API&#x63A5;&#x53E3;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x5B9E;&#x4E5F;&#x4E0D;&#x7528;&#x8FD9;&#x6837;&#x5199;&#x3002;&#x76F4;&#x63A5;&#x5728;flatMap&#x4E2D;&#x62FC;&#x63A5;RequestBody&#xFF0C;&#x8C03;&#x7528;API&#x8BF7;&#x6C42;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x6BD4;&#x5982;&#x50CF;&#x4E0B;&#x56FE;&#x8FD9;&#x6837;&#x5199;&#xFF1A;<br><img src="/2016/08/16/flat-workflow-with-rxjava/rx04.png" alt="rx04.png" title=""><br>&#x65E0;&#x5948;&#x9700;&#x6C42;&#x662F;&#x4E0A;&#x4F20;loc&#x6587;&#x4EF6;&#x540C;&#x65F6;&#x8FD8;&#x4F1A;&#x518D;&#x5E26;&#x4E0A;&#x4E00;&#x4E2A;sensor&#x6587;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x4E0D;&#x80FD;&#x50CF;&#x4E0A;&#x8FF0;&#x8FD9;&#x6837;&#x5199;&#x3002;</p>
+<h3 id="&#x4EA7;&#x54C1;&#x8BF4;&#xFF1A;&#x9700;&#x6C42;&#x53D8;&#x4E86;&#xFF5E;"><a href="#&#x4EA7;&#x54C1;&#x8BF4;&#xFF1A;&#x9700;&#x6C42;&#x53D8;&#x4E86;&#xFF5E;" class="headerlink" title="&#x4EA7;&#x54C1;&#x8BF4;&#xFF1A;&#x9700;&#x6C42;&#x53D8;&#x4E86;&#xFF5E;"></a>&#x4EA7;&#x54C1;&#x8BF4;&#xFF1A;&#x9700;&#x6C42;&#x53D8;&#x4E86;&#xFF5E;</h3><p>&#x63A5;&#x4E0B;&#x6765;&#x7684;workflow&#x5C31;&#x5F88;&#x6709;&#x8DA3;&#x4E86;&#x3002;&#x73B0;&#x5728;&#x6709;&#x4E86;&#x591A;&#x4E2A;Observable<file>&#xFF0C;&#x4E00;&#x4E2A;&#x4E2A;&#x4E0A;&#x4F20;&#x5C31;&#x662F;&#x4E86;&#x3002;</file></p>
+<p>&#x5982;&#x679C;&#x4E0D;&#x8003;&#x8651;&#x961F;&#x5217;&#xFF0C;&#x4E0D;&#x8003;&#x8651;&#x65E0;&#x7F51;&#x6216;&#x4E0A;&#x4F20;&#x5931;&#x8D25;&#x60C5;&#x51B5;&#x3002;&#x5B8C;&#x5168;&#x518D;&#x6765;&#x4E00;&#x4E2A;flatMap&#x5C06;Observable<file>&#x53D8;&#x6362;&#x4E3A;Observable<response<hashmap>&gt;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x6BD4;&#x5982;&#xFF1A;<br><img src="/2016/08/16/flat-workflow-with-rxjava/rx05.png" alt="rx05.png" title=""></response<hashmap></file></p>
+<p>&#x4F46;&#x73B0;&#x5728;&#x7684;&#x9700;&#x6C42;&#x662F;&#xFF0C;&#x961F;&#x5217;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5FC5;&#x987B;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;(&#x6210;&#x529F;&#xFF5C;&#x5931;&#x8D25;)&#x540E;&#x624D;&#x80FD;&#x8FDB;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x3002;&#x8FD9;&#x6837;&#x7528;flatMap&#x5C31;&#x4E0D;&#x53EF;&#x4EE5;&#x4E86;&#x3002;(&#x5176;&#x5B9E;&#x540E;&#x6765;&#x6211;&#x8003;&#x8651;&#x8FC7;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x7EBF;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x672C;&#x8D28;&#x8FD8;&#x662F;&#x7531;&#x6211;&#x58F0;&#x660E;&#x51FA;&#x6765;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x6765;&#x51B3;&#x5B9A;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x7528;Schedulers.newThread()&#xFF0C;&#x90A3;&#x5C31;&#x4F1A;&#x521B;&#x5EFA;&#x591A;&#x4E2A;&#x5B50;&#x7EBF;&#x7A0B;&#x3002;&#x4F46;&#x5982;&#x679C;&#x7528;Schedulers.from(Executors.newSingleThreadExecutor())&#x5462;&#xFF1F;)</p>
+<p>&#x9700;&#x6C42;&#x603B;&#x662F;&#x591A;&#x53D8;&#x7684;&#xFF0C;&#x597D;&#x5728;&#x6709;rxjava&#x53EF;&#x4EE5;&#x968F;&#x610F;&#x53D8;&#x6362;&#x3002;&#x6765;&#x5427;&#xFF0C;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4E0D;&#x7528;&#x5355;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x961F;&#x5217;&#x3002;</p>
+<h3 id="&#x4E0D;&#x80FD;&#x968F;&#x610F;&#x5957;&#x8DEF;&#xFF0C;&#x5751;&#x7684;&#x662F;&#x81EA;&#x5DF1;"><a href="#&#x4E0D;&#x80FD;&#x968F;&#x610F;&#x5957;&#x8DEF;&#xFF0C;&#x5751;&#x7684;&#x662F;&#x81EA;&#x5DF1;" class="headerlink" title="&#x4E0D;&#x80FD;&#x968F;&#x610F;&#x5957;&#x8DEF;&#xFF0C;&#x5751;&#x7684;&#x662F;&#x81EA;&#x5DF1;"></a>&#x4E0D;&#x80FD;&#x968F;&#x610F;&#x5957;&#x8DEF;&#xFF0C;&#x5751;&#x7684;&#x662F;&#x81EA;&#x5DF1;</h3><p>&#x4E4B;&#x524D;&#x5B66;&#x4E60;rxjava&#x65F6;&#xFF0C;&#x770B;&#x8FC7;&#x5F88;&#x591A;&#x5728;android&#x4E2D;&#x9AD8;&#x5EA6;&#x4F7F;&#x7528;rxjava&#x7684;&#x6587;&#x7AE0;&#x3002;&#x6709;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x7B26;&#x5F88;&#x6709;&#x610F;&#x601D;-&gt; concat()</p>
+<blockquote>
+<p>The Concat operator concatenates the output of multiple Observables so that they act like a single Observable, with all of the items emitted by the first Observable being emitted before any of the items emitted by the second Observable (and so forth, if there are more than two).</p>
+</blockquote>
+<p>&#x5373;&#x5C06;&#x591A;&#x4E2A;Observables&#x4E32;&#x8D77;&#x6210;&#x4E00;&#x4E2A;Observable&#xFF0C;&#x76F4;&#x5230;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#x518D;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x8FD9;&#x4E2A;concat()&#x5E94;&#x7528;&#x5728;&#x8BFB;&#x53D6;&#x7F13;&#x5B58;&#x8FD8;&#x662F;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x5668;, &#x5982;&#x679C;&#x7F13;&#x5B58;&#x6709;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x5C31;&#x4E0D;&#x7528;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x5668;&#x4E86;&#x3002;<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Observable&lt;<span class="built_in">Data</span>&gt; <span class="keyword">cache</span>;</span><br><span class="line">Observable&lt;<span class="built_in">Data</span>&gt; server;</span><br><span class="line">Observable<span class="built_in">.</span>concat(<span class="keyword">cache</span>, server)</span><br><span class="line">			<span class="built_in">.</span>first()</span><br></pre></td></tr></table></figure></p>
+<p>&#x8FD9;&#x4E2A;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x5728;&#x961F;&#x5217;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x573A;&#x666F;&#x4E0A;&#x54AF;&#x3002;but&#xFF0C;concat()&#x662F;&#x521B;&#x5EFA;&#x578B;&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x518D;&#x6B21;&#x53D8;&#x6362;&#x5C31;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x4E86;&#x3002;&#x4E0D;&#x8FC7;&#x53EF;&#x4EE5;&#x7528;concatMap(), </p>
+<blockquote>
+<p>Returns a new Observable that emits items resulting from applying a function that you supply to each item emitted by the source Observable, where that function returns an Observable, and then emitting the items that result from concatenating those resulting Observables.</p>
+</blockquote>
+<p>&#x76F4;&#x63A5;&#x770B;&#x4EE3;&#x7801;&#x5427;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx06.png" alt="rx06.png" title="">
+<p>&#x8FD9;&#x6BB5;&#x5199;&#x7684;&#x7279;<strong>&#x522B;&#x626D;</strong>&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x53C8;&#x8981;&#x5728;&#x4E00;&#x4E2A;Observable&#x91CC;&#x53C8;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;retrofit&#x76F8;&#x5173;&#x7684;Observable&#xFF1F;&#x5F53;&#x65F6;&#x60F3;&#x7684;&#x662F;&#xFF0C;&#x56E0;&#x4E3A;&#x8981;&#x5728;upload&#x6210;&#x529F;&#x540E;&#x5F97;&#x5220;&#x9664;&#x6587;&#x4EF6;&#x554A;&#x3002;&#x5982;&#x679C;&#x628A;subscribe&#x653E;&#x5230;&#x5916;&#x5C42;&#x53BB;&#xFF0C;&#x90A3;&#x63A5;&#x6536;&#x5230;&#x7684;&#x5168;&#x662F;&#x670D;&#x52A1;&#x5668;response&#xFF0C;&#x4E0D;&#x77E5;&#x9053;&#x5F53;&#x524D;&#x7684;response&#x5C5E;&#x4E8E;&#x54EA;&#x4E00;&#x4E2A;file upload&#x3002;&#x6240;&#x4EE5;&#x6211;&#x5C31;&#x53C8;&#x5199;&#x4E86;&#x6B21;&#x53D8;&#x6362;&#x3002;&#xFF08;&#x8FD9;&#x91CC;&#x80AF;&#x5B9A;&#x53EF;&#x4EE5;&#x4F18;&#x5316;&#x7684;&#xFF0C;&#x5199;&#x7684;&#x592A;&#x632B;&#xFF09;</p>
+<p>&#x5728;concatMap&#x4E2D;&#x63A5;&#x6536;&#x5230;from()&#x53D1;&#x5C04;&#x6765;&#x7684;&#x4E00;&#x4E2A;Observable&#xFF0C;&#x53D8;&#x6362;&#x6210;Retrofit&#x8BF7;&#x6C42;&#xFF0C;&#x5F53;Subscriber&#x6807;&#x8BB0;&#x4E3A;onCompleted&#x540E;&#x518D;&#x53BB;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;Observable&#x3002;</p>
+<p>&#x5230;&#x8FD9;&#x91CC;&#x8FD8;&#x6CA1;&#x5B8C;&#xFF0C;&#x5047;&#x5982;&#x65E0;&#x7F51;&#x7EDC;&#x53C8;&#x6216;&#x8005;&#x670D;&#x52A1;&#x5668;&#x5F02;&#x5E38;&#x3002;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;Observable&#x5C31;&#x4F1A;&#x5931;&#x8D25;&#xFF0C;&#x6B64;&#x65F6;&#x8FD8;&#x9700;&#x8981;&#x7EE7;&#x7EED;&#x8BF7;&#x6C42;&#x5417;&#xFF1F;&#x5F88;&#x6709;&#x53EF;&#x80FD;&#x540E;&#x9762;&#x7684;Observable&#x4E5F;&#x90FD;&#x4E0D;&#x6210;&#x529F;&#x3002;&#x90A3;&#x52A0;&#x4E2A;&#x5224;&#x65AD;&#x5427;&#x3002;concat()&#x53EF;&#x4EE5;&#x548C;first()&#x4E00;&#x8D77;&#x7528;&#x3002;concatMap()&#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#x3002;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx07.png" alt="rx07.png" title="">
+<blockquote>
+<p>If you are only interested in the first item emitted by an Observable, or the first item that meets some criteria, you can filter the Observable with the First operator.</p>
+</blockquote>
+<p>&#x5982;&#x679C;first() -&gt; return true; &#x8FD9;&#x6837;&#x53EA;&#x53D6;&#x5230;&#x76EE;&#x524D;&#x7684;&#x8FD9;&#x4E2A;Observable&#xFF0C;&#x540E;&#x7EED;&#x7684;&#x4E0D;&#x6267;&#x884C;&#x4E86;&#x3002;</p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x4E0A;&#x4F20;&#x6210;&#x529F;&#x65F6;return false&#xFF0C;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;Observable&#x3002;&#x5426;&#x5219;&#x5C31;return true&#x505C;&#x6B62;&#x3002;</p>
+<h3 id="&#x89C9;&#x9192;&#x5206;&#x5272;&#x7EBF;"><a href="#&#x89C9;&#x9192;&#x5206;&#x5272;&#x7EBF;" class="headerlink" title="&#x89C9;&#x9192;&#x5206;&#x5272;&#x7EBF;"></a>&#x89C9;&#x9192;&#x5206;&#x5272;&#x7EBF;</h3><p>&#x6211;&#x60F3;&#x4E4B;&#x524D;&#x80AF;&#x5B9A;&#x662F;&#x88AB;concat(cache, db, server).first()&#x6574;&#x61F5;&#x903C;&#x4E86;&#xFF0C;&#x4E00;&#x5FC3;&#x53BB;&#x5957;&#xFF0C;&#x624D;&#x5199;&#x4E86;&#x4E0A;&#x9762;&#x8FD9;&#x4E48;&#x4E8C;&#x7684;&#x4EE3;&#x7801;&#x7684;&#x3002;&#x7B49;&#x7B49;&#xFF0C;&#x5BB9;&#x6211;&#x6362;&#x4E2A;&#x59FF;&#x52BF;&#x3002;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx10.png" alt="rx10.png" title="">
+<p>&#x770B;&#xFF0C;&#x5BF9;&#x8BF7;&#x6C42;&#x7ED3;&#x679C;map&#x53D8;&#x6362;&#x4E00;&#x6B21;&#x5C31;&#x53EF;&#x4EE5;&#x5566;&#xFF0C;&#x5982;&#x679C;&#x6210;&#x529F;&#x5220;&#x9664;&#x76F8;&#x5173;&#x6587;&#x4EF6;&#xFF0C;&#x4E0D;&#x6210;&#x529F;&#x5C31;&#x662F;&#x4E2A;&#x5F02;&#x5E38;&#x4E86;&#x3002;Observable.error()&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x8DF3;&#x51FA;&#x4E86;concatMap&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5F53;&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x65F6;&#x4F1A;&#x505C;&#x6B62;&#x540E;&#x7EED;&#x7684;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x3002;&#x8FD9;&#x6837;first()&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x5566;&#x3002;&#x9664;&#x975E;&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x989D;&#x5916;&#x7684;&#x505C;&#x6B62;flag&#x8981;&#x5224;&#x65AD;&#x3002;</p>
+<p>&#x5230;&#x8FD9;&#x91CC;&#x6574;&#x4E2A;workflow&#x5C31;&#x88AB;rxjava&#x68B3;&#x7406;&#x5B8C;&#x6BD5;&#x4E86;&#x3002;&#x662F;&#x4E0D;&#x662F;&#x5F88;&#x6709;&#x8DA3;&#xFF1F;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E0B;&#x4EE3;&#x7801;&#x5168;&#x8FC7;&#x7A0B;&#x3002;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx08.png" alt="rx08.png" title="">
+<p>&#x8FD8;&#x5269;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;<strong>&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;</strong>&#x3002;</p>
+<p>&#x4E4B;&#x524D;&#x4E00;&#x76F4;&#x90FD;&#x6CA1;&#x5199;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x7684;&#x5730;&#x65B9;&#x3002;subscribeOn&#x653E;&#x5728;&#x54EA;&#x91CC;&#x6BD4;&#x8F83;&#x597D;&#xFF1F;</p>
+<p>&#x9700;&#x6C42;&#x662F;&#xFF1A;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;listFile&#x62FF;&#x5230;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x4E00;&#x4E2A;&#x4E2A;&#x961F;&#x5217;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#xFF0C;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#x518D;&#x5207;&#x6362;&#x5230;&#x4E3B;&#x7EBF;&#x7A0B;&#x5F39;dialog&#x544A;&#x77E5;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x8FD9;&#x6837;&#x6765;&#x8BF4;&#xFF0C;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x65F6;&#x4E0D;&#x9700;&#x8981;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#xFF0C;&#x6240;&#x4EE5;&#x8C03;&#x7528;retrofit&#x7684;&#x5730;&#x65B9;&#x662F;&#x4E0D;&#x9700;&#x8981;subscribeOn&#x3002;&#x5982;&#x679C;&#x6267;&#x610F;&#x8981;&#x5728;uploadTrip()&#x540E;&#x52A0;&#x4E0A;subscribeOn(io)&#xFF0C;&#x4E5F;&#x4E0D;&#x662F;&#x4E0D;&#x53EF;&#x4EE5;&#x3002;&#x53EA;&#x662F;&#x6BCF;&#x4E2A;&#x4E0A;&#x4F20;task&#x90FD;&#x5728;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7EBF;&#x7A0B;&#x91CC;&#x6267;&#x884C;&#x7684;&#x3002;&#x4F46;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x662F;&#x4E2A;&#x961F;&#x5217;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x4E00;&#x76F4;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x91CC;&#x6267;&#x884C;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x653E;&#x5728;&#x4E86;flatMap&#x4E2D;&#x3002;&#x6700;&#x7EC8;&#x6267;&#x884C;&#x7684;log&#x5982;&#x4E0B;&#x56FE;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx09.png" alt="rx09.png" title="">
+<p>&#x597D;&#x4E86;&#xFF0C;&#x6DF7;&#x4E71;&#x7684;workflow&#x603B;&#x7B97;&#x64B8;&#x6210;&#x4E32;&#x4E86;&#x3002;&#x5E73;&#x65F6;&#x770B;&#x76F8;&#x5173;&#x6587;&#x7AE0;&#x603B;&#x89C9;&#x5F97;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x65E0;&#x975E;&#x5C31;&#x662F;&#x51E0;&#x4E2A;&#x64CD;&#x4F5C;&#x7B26;&#x62FC;&#x63A5;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x505A;&#x4E86;&#x7EBF;&#x7A0B;&#x5207;&#x6362;&#x3002;&#x4E0D;&#x597D;&#x7406;&#x89E3;&#x7684;&#x5C31;&#x662F;&#x94FE;&#x5F0F;&#x601D;&#x7EF4;&#x7684;&#x8F6C;&#x6362;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#x7B26;&#xFF1A;compose transformer&#x7B49;&#x3002;&#x7B49;&#x5230;&#x771F;&#x6B63;&#x5E94;&#x7528;&#x5230;&#x9879;&#x76EE;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x7740;&#x5B9E;&#x6298;&#x817E;&#x4E86;&#x4E0D;&#x5C11;&#x3002;&#x6BD4;&#x5982;&#x4E0D;&#x7528;flatMap&#xFF0C;&#x6539;&#x4E3A;concatMap&#x3002;&#x6BD4;&#x5982;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x3002;&#x6BD4;&#x5982;&#x653E;&#x5F03;&#x4F7F;&#x7528;retrofit+rxjava&#x5957;&#x8DEF;&#xFF0C;&#x91CD;&#x65B0;&#x8BA4;&#x8BC6;reactive&#x7B49;&#x3002;</p>
+<p>&#x603B;&#x5F97;&#x6765;&#x8BF4;&#xFF0C;&#x5F53;&#x7406;&#x89E3;&#x4E86;rxjava&#x7684;&#x94FE;&#x5F0F;&#x601D;&#x7EF4;&#x5E76;&#x5BF9;&#x4E00;&#x4E9B;&#x590D;&#x6742;&#x7684;&#x903B;&#x8F91;&#x91CD;&#x6784;&#x4E4B;&#x540E;&#xFF0C;&#x8FD8;&#x662F;&#x4F1A;&#x7231;&#x4E0A;&#x7684;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#x9605;&#x8BFB;</p>
+<ol>
+<li>&#x7406;&#x89E3;&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x8FD8;&#x662F;&#x770B;&#x5B98;&#x7F51;&#x6700;&#x4F73;<a href="http://reactivex.io/" target="_blank" rel="external">ReactiveX</a></li>
+<li>&#x611F;&#x8C22;<a href="http://www.jianshu.com/users/df40282480b4/latest_articles" target="_blank" rel="external">&#x5C0F;&#x9127;&#x5B50;</a>&#x5E2E;&#x5FD9;&#x68B3;&#x7406;&#x6D41;&#x7A0B;&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x58F0;&#x660E;:&#x672C;&#x6587;&#x4E3A;Stay&#x539F;&#x521B;,&#x672A;&#x7ECF;&#x5141;&#x8BB8;&#x8BF7;&#x52FF;&#x8F6C;&#x8F7D;  <a href="http://www.stay4it.com" target="_blank" rel="external">&#x6709;&#x5FC3;&#x8BFE;&#x5802;(stay4it.com)</a> &#x4F20;&#x9012;&#x7ED9;&#x4F60;&#x7684;&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x6280;&#x672F;&#xFF5E;</p>
+</blockquote>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rxjava/" rel="tag">#rxjava</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/12/python-things-join-gitosc-project/" rel="next" title="记一次python爬虫实践">
+                <i class="fa fa-chevron-left"></i> 记一次python爬虫实践
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/16/flat-workflow-with-rxjava/"
+     data-title="Rxjava实践-把混乱的WORKFLOW撸成串吧"
+     data-content=""
+     data-url="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/16/flat-workflow-with-rxjava/"
+           data-title="Rxjava实践-把混乱的WORKFLOW撸成串吧" data-url="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my_avatar.jpg"
+               alt="Stay" />
+          <p class="site-author-name" itemprop="name">Stay</p>
+          <p class="site-description motion-element" itemprop="description">select * from life</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Stay" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.stay4it.com" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 有心课堂
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/6e4c6553a7f9" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 简书
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/stay4it" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#巨坑从来都是由小坑慢慢塌陷的"><span class="nav-number">1.</span> <span class="nav-text">巨坑从来都是由小坑慢慢塌陷的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把能看见的都改成stream吧"><span class="nav-number">2.</span> <span class="nav-text">把能看见的都改成stream吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产品说：需求变了～"><span class="nav-number">3.</span> <span class="nav-text">产品说：需求变了～</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不能随意套路，坑的是自己"><span class="nav-number">4.</span> <span class="nav-text">不能随意套路，坑的是自己</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#觉醒分割线"><span class="nav-number">5.</span> <span class="nav-text">觉醒分割线</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stay</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"stay4it-note"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("zG8P4e1cBLLy6DhoVe68NJqR-gzGzoHsz", "8DKIsCr0wID4auEWBv3xNV9x");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

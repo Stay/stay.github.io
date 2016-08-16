@@ -219,6 +219,143 @@
 
     
     
+      
+      
+        
+        
+        
+      
+
+      
+    
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/16/flat-workflow-with-rxjava/" itemprop="url">
+                  Rxjava实践-把混乱的WORKFLOW撸成串吧
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T16:38:51+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/高效开发/" itemprop="url" rel="index">
+                    <span itemprop="name">高效开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/flat-workflow-with-rxjava/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/flat-workflow-with-rxjava/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/16/flat-workflow-with-rxjava/" class="leancloud_visitors" data-flag-title="Rxjava实践-把混乱的WORKFLOW撸成串吧">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&#x4E0A;&#x4E2A;&#x6708;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x6BD4;&#x8F83;&#x591A;&#xFF1A;&#x6539;&#x6539;iOS bug&#xFF0C;&#x5B66;python&#xFF0C;&#x628A;&#x9879;&#x76EE;&#x91CD;&#x6784;&#x6210;MVP&#xFF0C;&#x6DF1;&#x5165;&#x4F7F;&#x7528;Rxjava&#x3002;</p>
+<p>&#x8FD9;&#x6B21;&#x6765;&#x8BF4;&#x8BF4;Rxjava&#xFF0C;&#x901A;&#x8FC7;&#x8FD8;&#x539F;&#x4E00;&#x4E2A;&#x771F;&#x5B9E;&#x7684;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#xFF0C;&#x6765;&#x611F;&#x53D7;&#x4E0B;rxjava&#x7684;&#x4FBF;&#x5229;&#x4E4B;&#x5904;&#x3002;</p>
+<h3 id="&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;"><a href="#&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;" class="headerlink" title="&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;"></a>&#x5DE8;&#x5751;&#x4ECE;&#x6765;&#x90FD;&#x662F;&#x7531;&#x5C0F;&#x5751;&#x6162;&#x6162;&#x584C;&#x9677;&#x7684;</h3><p>&#x5148;&#x6765;&#x770B;&#x4E0B;&#x4E00;&#x6BB5;&#x6700;&#x666E;&#x901A;&#x7684;&#x4EE3;&#x7801;</p>
+<img src="/2016/08/16/flat-workflow-with-rxjava/rx01.png" alt="rx01.png" title="">
+<p>&#x5728;&#x6CA1;&#x6709;&#x7279;&#x6B8A;&#x9700;&#x6C42;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4EE3;&#x7801;&#x5C31;&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#xFF0C;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#xFF0C;&#x5C06;&#x5B83;&#x4EEC;&#x4E00;&#x4E2A;&#x4E2A;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x53BB;&#x3002;</p>
+<p>&#x770B;&#x8D77;&#x6765;&#x597D;&#x50CF;&#x662F;&#x6CA1;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF0C;&#x4E00;&#x4E2A;for&#x5FAA;&#x73AF;&#x641E;&#x5B9A;&#x3002;&#x4E00;&#x4E2A;task&#x5931;&#x8D25;&#x4E86;&#x4E0D;&#x5F71;&#x54CD;&#x53E6;&#x4E00;&#x4E2A;task&#x3002;&#x6BCF;&#x4E2A;task run&#x5728;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x5B50;&#x7EBF;&#x7A0B;&#x3002;</p>
+<p>&#x4E4B;&#x524D;rxjava&#x4F7F;&#x7528;&#x573A;&#x666F;&#x53EA;&#x5C40;&#x9650;&#x4E8E;&#x548C;Retrofit&#x4E00;&#x8D77;&#x7528;&#x3002;&#x6CA1;&#x8FC7;&#x591A;&#x7684;&#x4F7F;&#x7528;&#x64CD;&#x4F5C;&#x7B26;&#x3002;&#x56E0;&#x6B64;&#x5728;uploadFile(path)&#x65B9;&#x6CD5;&#x4E2D;&#x5C31;&#x662F;&#x6700;&#x7B80;&#x5355;&#x7684;Retrofit&#xFF0B;Rxjava&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x3002;rxjava&#x5C31;&#x5207;&#x6362;&#x4E86;&#x4E0B;&#x7EBF;&#x7A0B;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x5199;&#x60EF;java&#x7684;&#x4EBA;&#xFF0C;&#x8FD9;&#x4E48;&#x5199;&#x662F;&#x6CA1;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#x7684;&#x3002;&#x4F46;&#x5982;&#x679C;&#x6DF1;&#x5165;&#x4F7F;&#x7528;&#x8FC7;rxjava&#x4E4B;&#x540E;&#xFF0C;&#x8FD9;&#x4E48;&#x5199;&#x5C31;&#x975E;&#x5E38;&#x522B;&#x626D;&#x4E86;&#x3002;&#x770B;&#x5230;for loop&#x4E86;&#xFF0C;&#x4F60;&#x4E0D;&#x60F3;&#x5C06;&#x5B83;&#x6539;&#x6210;Observable.from()&#x561B;&#xFF1F;</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/16/flat-workflow-with-rxjava/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -1362,129 +1499,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/17/i-want-to-hire-a-developer-like-this/" itemprop="url">
-                  我希望招聘这样的developer
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-17T09:40:57+08:00" content="2016-03-17">
-              2016-03-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/经验之谈/" itemprop="url" rel="index">
-                    <span itemprop="name">经验之谈</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/17/i-want-to-hire-a-developer-like-this/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/17/i-want-to-hire-a-developer-like-this/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/03/17/i-want-to-hire-a-developer-like-this/" class="leancloud_visitors" data-flag-title="我希望招聘这样的developer">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x770B;&#x4E86;&#x4E0D;&#x5C11;&#x7B80;&#x5386;&#xFF0C;&#x6CA1;&#x51E0;&#x4E2A;&#x80FD;&#x770B;&#x4E0A;&#x7684;&#x3002;&#x4F5C;&#x5047;&#x7684;&#xFF0C;&#x81EA;&#x6EE1;&#x7684;&#xFF0C;&#x6577;&#x884D;&#x7684;&#xFF0C;&#x592A;&#x591A;&#x7834;&#x7EFD;&#x4E86;&#x3002;&#x7F51;&#x4F20;&#x4ECA;&#x5E74;&#x4E00;&#x4E2A;android&#x804C;&#x4F4D;&#x6709;1000&#x591A;&#x4E2A;&#x4EBA;&#x6295;&#x9012;&#xFF0C;&#x6211;&#x60F3;&#x5E94;&#x8BE5;80%&#x8FDE;&#x7535;&#x8054;&#xFF0C;&#x9762;&#x8BD5;&#x7684;&#x51E0;&#x7387;&#x90FD;&#x6CA1;&#x6709;&#x5427;&#x3002;</p>
-<p>&#x867D;&#x7136;&#x73B0;&#x5728;&#x627E;&#x5DE5;&#x4F5C;&#x90FD;&#x9760;&#x63A8;&#x8350;&#xFF0C;&#x4F46;&#x597D;&#x6B79;&#x8FD8;&#x662F;&#x8981;&#x770B;&#x770B;&#x7B80;&#x5386;&#x7684;&#x5427;&#xFF0C;&#x9664;&#x975E;&#x4F60;&#x7529;&#x51FA;&#x6392;&#x540D;1000&#x5185;&#x7684;csdn&#x535A;&#x5BA2;&#x6216;&#x8005;star&#x8FC7;1000&#x7684;github&#x3002;&#x7B80;&#x5386;&#x5C31;&#x597D;&#x6BD4;&#x4F60;&#x7684;&#x7740;&#x88C5;&#xFF0C;&#x770B;&#x90FD;&#x770B;&#x4E0D;&#x4E0B;&#x53BB;&#x8C01;&#x8FD8;&#x60F3;&#x7EE7;&#x7EED;&#x6DF1;&#x5165;&#x4E0B;&#x53BB;&#x5462;&#x3002;</p>
-<p>&#x8BF4;&#x4E0B;Stay&#x7B5B;&#x9009;&#x7B80;&#x5386;&#x7684;&#x6807;&#x51C6;&#x3002;</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/17/i-want-to-hire-a-developer-like-this/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1531,7 +1545,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1548,7 +1562,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
