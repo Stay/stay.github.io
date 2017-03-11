@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,OkHttp,Retrofit,RxJava,Square," />
+  <meta name="keywords" content="Android,Retrofit,RxJava,OkHttp,Square," />
 
 
 
@@ -58,13 +58,13 @@
 
 
 <meta name="description" content="&amp;#x6CA1;&amp;#x8010;&amp;#x5FC3;&amp;#x81EA;&amp;#x5DF1;&amp;#x5206;&amp;#x6790;&amp;#x6E90;&amp;#x7801;&amp;#x7684;&amp;#x540C;&amp;#x5B66;&amp;#xFF0C;&amp;#x8FD8;&amp;#x53EF;&amp;#x4EE5;&amp;#x53C2;&amp;#x8003;Stay&amp;#x5F55;&amp;#x5236;&amp;#x7684;&amp;#x89C6;&amp;#x9891;&amp;#x7248;
-Ret">
+Re">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit分析-漂亮的解耦套路">
 <meta property="og:url" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/index.html">
 <meta property="og:site_name" content="Stay's Notes">
 <meta property="og:description" content="&amp;#x6CA1;&amp;#x8010;&amp;#x5FC3;&amp;#x81EA;&amp;#x5DF1;&amp;#x5206;&amp;#x6790;&amp;#x6E90;&amp;#x7801;&amp;#x7684;&amp;#x540C;&amp;#x5B66;&amp;#xFF0C;&amp;#x8FD8;&amp;#x53EF;&amp;#x4EE5;&amp;#x53C2;&amp;#x8003;Stay&amp;#x5F55;&amp;#x5236;&amp;#x7684;&amp;#x89C6;&amp;#x9891;&amp;#x7248;
-Ret">
+Re">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit00.png">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit01.png">
 <meta property="og:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit03.png">
@@ -79,7 +79,8 @@ Ret">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit分析-漂亮的解耦套路">
 <meta name="twitter:description" content="&amp;#x6CA1;&amp;#x8010;&amp;#x5FC3;&amp;#x81EA;&amp;#x5DF1;&amp;#x5206;&amp;#x6790;&amp;#x6E90;&amp;#x7801;&amp;#x7684;&amp;#x540C;&amp;#x5B66;&amp;#xFF0C;&amp;#x8FD8;&amp;#x53EF;&amp;#x4EE5;&amp;#x53C2;&amp;#x8003;Stay&amp;#x5F55;&amp;#x5236;&amp;#x7684;&amp;#x89C6;&amp;#x9891;&amp;#x7248;
-Ret">
+Re">
+<meta name="twitter:image" content="http://notes.stay4it.com/2016/04/05/read-the-fcking-code-of-retrofit/retrofit00.png">
 
 
 
@@ -300,15 +301,6 @@ Ret">
 
           
           
-             <span id="/2016/04/05/read-the-fcking-code-of-retrofit/" class="leancloud_visitors" data-flag-title="Retrofit分析-漂亮的解耦套路">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
         </div>
       </header>
     
@@ -384,11 +376,11 @@ Ret">
           
             <a href="/tags/Android/" rel="tag">#Android</a>
           
-            <a href="/tags/OkHttp/" rel="tag">#OkHttp</a>
-          
             <a href="/tags/Retrofit/" rel="tag">#Retrofit</a>
           
             <a href="/tags/RxJava/" rel="tag">#RxJava</a>
+          
+            <a href="/tags/OkHttp/" rel="tag">#OkHttp</a>
           
             <a href="/tags/Square/" rel="tag">#Square</a>
           
@@ -605,8 +597,8 @@ Ret">
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -873,99 +865,6 @@ Ret">
 
   
   
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("zG8P4e1cBLLy6DhoVe68NJqR-gzGzoHsz", "8DKIsCr0wID4auEWBv3xNV9x");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
 
 </body>

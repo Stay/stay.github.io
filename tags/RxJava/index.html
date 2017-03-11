@@ -60,7 +60,7 @@
 <meta name="description" content="select * from life">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Stay's Notes">
-<meta property="og:url" content="http://notes.stay4it.com/tags/rxjava/index.html">
+<meta property="og:url" content="http://notes.stay4it.com/tags/RxJava/index.html">
 <meta property="og:site_name" content="Stay's Notes">
 <meta property="og:description" content="select * from life">
 <meta name="twitter:card" content="summary">
@@ -83,7 +83,7 @@
   };
 </script>
 
-  <title> 标签: rxjava | Stay's Notes </title>
+  <title> 标签: RxJava | Stay's Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -215,7 +215,7 @@
   <div id="posts" class="posts-collapse">
     <div class="collection-title">
       <h2 >
-        rxjava
+        RxJava
         <small>标签</small>
       </h2>
     </div>
@@ -228,9 +228,9 @@
 
       <h1 class="post-title">
         
-            <a class="post-title-link" href="/2016/08/16/flat-workflow-with-rxjava/" itemprop="url">
+            <a class="post-title-link" href="/2016/04/05/read-the-fcking-code-of-retrofit/" itemprop="url">
               
-                <span itemprop="name">Rxjava实践-把混乱的WORKFLOW撸成串吧</span>
+                <span itemprop="name">Retrofit分析-漂亮的解耦套路</span>
               
             </a>
         
@@ -238,9 +238,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-16T16:38:51+08:00"
-              content="2016-08-16" >
-          08-16
+              datetime="2016-04-05T22:32:28+08:00"
+              content="2016-04-05" >
+          04-05
         </time>
       </div>
 
@@ -378,8 +378,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -486,99 +486,7 @@
   
   
 
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("zG8P4e1cBLLy6DhoVe68NJqR-gzGzoHsz", "8DKIsCr0wID4auEWBv3xNV9x");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
 
 </body>
 </html>
+>

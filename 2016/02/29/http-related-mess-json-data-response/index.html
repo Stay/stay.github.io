@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JsonReader,android,gson," />
+  <meta name="keywords" content="android,gson,JsonReader," />
 
 
 
@@ -80,6 +80,7 @@ HTTP&amp;#x90A3;&amp;#x4E9B;&amp;#x4E8B;-JSON&amp;#x53CD;&amp;#x5E8F;&amp;#x5217
 HTTP&amp;#x90A3;&amp;#x4E9B;&amp;#x4E8B;-JSON&amp;#x6570;&amp;#x636E; 
 HTTP&amp;#x90A3;&amp;#x4E9B;&amp;#x4E8B;-JSON&amp;#x53CD;&amp;#x5E8F;&amp;#x5217;&amp;#x5316;
 &amp;#x5728;JSON&amp;#x53CD;&amp;#x5E8F;&amp;#x5217;&amp;#x53">
+<meta name="twitter:image" content="http://notes.stay4it.com/2016/02/29/http-related-mess-json-data-response/json01.png">
 
 
 
@@ -300,15 +301,6 @@ HTTP&amp;#x90A3;&amp;#x4E9B;&amp;#x4E8B;-JSON&amp;#x53CD;&amp;#x5E8F;&amp;#x5217
 
           
           
-             <span id="/2016/02/29/http-related-mess-json-data-response/" class="leancloud_visitors" data-flag-title="HTTP那些事-超大JSON文本">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
         </div>
       </header>
     
@@ -383,11 +375,11 @@ JsonReader reader = new JsonReader(in);
       
         <div class="post-tags">
           
-            <a href="/tags/JsonReader/" rel="tag">#JsonReader</a>
-          
             <a href="/tags/android/" rel="tag">#android</a>
           
             <a href="/tags/gson/" rel="tag">#gson</a>
+          
+            <a href="/tags/JsonReader/" rel="tag">#JsonReader</a>
           
         </div>
       
@@ -602,8 +594,8 @@ JsonReader reader = new JsonReader(in);
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -870,99 +862,6 @@ JsonReader reader = new JsonReader(in);
 
   
   
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("zG8P4e1cBLLy6DhoVe68NJqR-gzGzoHsz", "8DKIsCr0wID4auEWBv3xNV9x");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
 
 </body>

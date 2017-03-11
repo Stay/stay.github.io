@@ -77,6 +77,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rxjava实践-把混乱的WORKFLOW撸成串吧">
 <meta name="twitter:description" content="&amp;#x4E0A;&amp;#x4E2A;&amp;#x6708;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&amp;#x60C5;&amp;#x6BD4;&amp;#x8F83;&amp;#x591A;&amp;#xFF1A;&amp;#x6539;&amp;#x6539;iOS bug&amp;#xFF0C;&amp;#x5B66;python&amp;#xFF0C;&amp;#x628A;&amp;#x9879;&amp;#x76EE;&amp;#x91CD;&amp;#x6784;&amp;#x6210;MVP&amp;#xFF0C;">
+<meta name="twitter:image" content="http://notes.stay4it.com/2016/08/16/flat-workflow-with-rxjava/rx01.png">
 
 
 
@@ -297,15 +298,6 @@
 
           
           
-             <span id="/2016/08/16/flat-workflow-with-rxjava/" class="leancloud_visitors" data-flag-title="Rxjava实践-把混乱的WORKFLOW撸成串吧">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
         </div>
       </header>
     
@@ -352,7 +344,7 @@
 <p>The Concat operator concatenates the output of multiple Observables so that they act like a single Observable, with all of the items emitted by the first Observable being emitted before any of the items emitted by the second Observable (and so forth, if there are more than two).</p>
 </blockquote>
 <p>&#x5373;&#x5C06;&#x591A;&#x4E2A;Observables&#x4E32;&#x8D77;&#x6210;&#x4E00;&#x4E2A;Observable&#xFF0C;&#x76F4;&#x5230;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#x518D;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x8FD9;&#x4E2A;concat()&#x5E94;&#x7528;&#x5728;&#x8BFB;&#x53D6;&#x7F13;&#x5B58;&#x8FD8;&#x662F;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x5668;, &#x5982;&#x679C;&#x7F13;&#x5B58;&#x6709;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x5C31;&#x4E0D;&#x7528;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x5668;&#x4E86;&#x3002;<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Observable&lt;<span class="built_in">Data</span>&gt; <span class="keyword">cache</span>;</span><br><span class="line">Observable&lt;<span class="built_in">Data</span>&gt; server;</span><br><span class="line">Observable<span class="built_in">.</span>concat(<span class="keyword">cache</span>, server)</span><br><span class="line">			<span class="built_in">.</span>first()</span><br></pre></td></tr></table></figure></p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x8FD9;&#x4E2A;concat()&#x5E94;&#x7528;&#x5728;&#x8BFB;&#x53D6;&#x7F13;&#x5B58;&#x8FD8;&#x662F;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x5668;, &#x5982;&#x679C;&#x7F13;&#x5B58;&#x6709;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x5C31;&#x4E0D;&#x7528;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x5668;&#x4E86;&#x3002;<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Observable&lt;<span class="built_in">Data</span>&gt; <span class="keyword">cache</span>;</div><div class="line">Observable&lt;<span class="built_in">Data</span>&gt; server;</div><div class="line">Observable.concat(<span class="keyword">cache</span>, server)</div><div class="line">			.first()</div></pre></td></tr></table></figure></p>
 <p>&#x8FD9;&#x4E2A;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x5728;&#x961F;&#x5217;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x573A;&#x666F;&#x4E0A;&#x54AF;&#x3002;but&#xFF0C;concat()&#x662F;&#x521B;&#x5EFA;&#x578B;&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x518D;&#x6B21;&#x53D8;&#x6362;&#x5C31;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x4E86;&#x3002;&#x4E0D;&#x8FC7;&#x53EF;&#x4EE5;&#x7528;concatMap(), </p>
 <blockquote>
 <p>Returns a new Observable that emits items resulting from applying a function that you supply to each item emitted by the source Observable, where that function returns an Observable, and then emitting the items that result from concatenating those resulting Observables.</p>
@@ -607,8 +599,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -875,99 +867,6 @@
 
   
   
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("zG8P4e1cBLLy6DhoVe68NJqR-gzGzoHsz", "8DKIsCr0wID4auEWBv3xNV9x");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
 
 </body>
