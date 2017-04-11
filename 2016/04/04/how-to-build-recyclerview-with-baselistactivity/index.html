@@ -287,7 +287,7 @@
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
                 <a href="/2016/04/04/how-to-build-recyclerview-with-baselistactivity/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/04/how-to-build-recyclerview-with-baselistactivity/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/04/how-to-build-recyclerview-with-baselistactivity/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -417,25 +417,6 @@ class SampleViewHolder extends BaseViewHolder {
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/04/04/how-to-build-recyclerview-with-baselistactivity/"
-     data-title="封装那些事-100行代码撸一个RecyclerView"
-     data-content=""
-     data-url="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
-
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
-  </div>
-</div>
-      
     </div>
   </div>
 
@@ -447,8 +428,11 @@ class SampleViewHolder extends BaseViewHolder {
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/04/how-to-build-recyclerview-with-baselistactivity/"
-           data-title="封装那些事-100行代码撸一个RecyclerView" data-url="http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
       </div>
     
   </div>
@@ -836,28 +820,30 @@ class SampleViewHolder extends BaseViewHolder {
 
   
 
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"stay4it-note"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-    
-  
 
 
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'stay4it';
+      var disqus_identifier = '2016/04/04/how-to-build-recyclerview-with-baselistactivity/';
+      var disqus_title = '封装那些事-100行代码撸一个RecyclerView';
+      var disqus_url = 'http://notes.stay4it.com/2016/04/04/how-to-build-recyclerview-with-baselistactivity/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
 
 
 
